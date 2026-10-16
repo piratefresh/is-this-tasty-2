@@ -1,9 +1,18 @@
 import { Button, Column, RNHostView, Slider, Switch } from "@expo/ui";
+import { semantics } from "@expo/ui/jetpack-compose/modifiers";
+import { accessibilityLabel } from "@expo/ui/swift-ui/modifiers";
 import { useState } from "react";
+import { Platform } from "react-native";
 
 import { Text } from "../../text";
 import { ThemedHost } from "../themed-host";
 import { space } from "../tokens";
+
+const sliderModifiers = Platform.select({
+  ios: [accessibilityLabel("Theme slider")],
+  android: [semantics({ contentDescription: "Theme slider" })],
+  default: [],
+});
 
 /** Raw native controls deliberately share one Host to verify inherited theme. */
 export function ThemeControlsExample() {
@@ -21,7 +30,7 @@ export function ThemeControlsExample() {
         <RNHostView matchContents={{ vertical: true }}>
           <Text variant="label">Slider: {Math.round(value * 100)}%</Text>
         </RNHostView>
-        <Slider value={value} onValueChange={setValue} testID="theme-slider" />
+        <Slider value={value} onValueChange={setValue} modifiers={sliderModifiers} testID="theme-slider" />
         <Button label="Check tint" onPress={() => setPresses((count) => count + 1)} testID="theme-button" />
         <RNHostView matchContents={{ vertical: true }}>
           <Text variant="body">Switch {enabled ? "on" : "off"} · Button presses: {presses}</Text>

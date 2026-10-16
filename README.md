@@ -80,7 +80,9 @@ wrappers, so the example checks inherited theme rather than per-control colors.
 Switch between device light and dark appearances: the screen should remain dark
 and active controls violet (Android derives a Material palette from the tint).
 Toggle the switch, drag the slider, and press the button; the readouts confirm
-callbacks. Check cold launch and a catalog push separately for white flashes.
+callbacks. The slider's native accessible name is “Theme slider” (SwiftUI
+accessibility label / Compose semantics content description).
+Check cold launch and a catalog push separately for white flashes.
 Android rendering and callbacks have been exercised on an emulator; iOS,
 screen-reader checks, and frame-by-frame cold-start/push review remain required.
 
