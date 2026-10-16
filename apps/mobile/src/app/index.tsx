@@ -9,9 +9,17 @@ export default function HomeScreen() {
       <Stack.Screen options={{ title: "Is This Tasty?" }} />
       <Text variant="display">Is This Tasty?</Text>
       {__DEV__ ? (
-        <Link href="/dev/catalog" asChild>
-          <Text variant="label" style={styles.link}>Open component catalog</Text>
-        </Link>
+        <>
+          <Link href="/dev/catalog" asChild>
+            <Text variant="label" style={styles.link}>Open component catalog</Text>
+          </Link>
+          <Link
+            href={{ pathname: "/preview/[component]/[example]", params: { component: "settings-form", example: "privacy" } }}
+            asChild
+          >
+            <Text variant="label" style={styles.link}>Open settings form preview</Text>
+          </Link>
+        </>
       ) : null}
     </View>
   );
