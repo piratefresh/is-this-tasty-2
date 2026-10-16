@@ -1,56 +1,54 @@
-# Welcome to your Expo app 👋
+# Is This Tasty
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A pnpm monorepo containing the Expo / React Native app.
 
-## Get started
+## Structure
 
-1. Install dependencies
+- `apps/mobile`: Expo app, including routes in `src/app`, assets, and app configuration.
+- `packages/*`: Workspace location for shared packages when needed.
+- `pnpm-workspace.yaml` and `pnpm-lock.yaml`: Workspace configuration and shared dependency lockfile.
 
-   ```bash
-   npm install
-   ```
+## Development
 
-2. Start the app
+Use Node.js 24 and pnpm 12.5.1. Run commands from the repository root:
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```sh
+pnpm install
+pnpm dev
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Open Android, iOS, or web with `pnpm android`, `pnpm ios`, or `pnpm web`.
 
-### Other setup steps
+```sh
+pnpm lint
+pnpm typecheck
+```
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+To run app-specific commands:
 
-## Learn more
+```sh
+pnpm --filter @is-this-tasty/mobile exec expo install <package>
+pnpm --filter @is-this-tasty/mobile exec expo start --clear
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+`pnpm reset-project` runs the starter reset script inside `apps/mobile`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Design system
 
-## Join the community
+Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on Android), currently **@expo/ui 57.0.25 on Expo SDK 57**. Prop names change between releases, so check the installed types before upgrading.
 
-Join our community of developers creating universal apps.
+- `src/theme/tokens.ts` is the only place hex values live. ESLint fails on hex literals elsewhere in `src/`.
+- `<Text variant="…">` from `src/theme/text.tsx` for all text. Never set font family or size by hand.
+- `pnpm --filter @is-this-tasty/mobile check:contrast` checks text tokens against WCAG AA.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Host rules.** Wrap native views in `ThemedHost` (`src/theme/themed-host.tsx`). It forces dark mode and the violet tint.
+
+- One Host per screen region, not one per control.
+- Use `matchContents` for rows and inline controls; `style={{ flex: 1 }}` for full-screen Forms.
+- Don't nest Hosts.
+
+## Adding workspaces
+
+Place additional apps under `apps/` and shared packages under `packages/`, each with its own `package.json`. Reference local packages with `workspace:*`, then run `pnpm install` at the repository root.
+
+Expo app configuration and any future EAS configuration belong in `apps/mobile`. Run EAS commands from that directory.
