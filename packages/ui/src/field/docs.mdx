@@ -1,0 +1,79 @@
+---
+title: Field
+description: Text entry for sign in, sign up, invite codes and search, with inline errors and autofill.
+---
+
+Native-first text entry. `Field` is one component for plain, secure and search
+input; the placeholder doubles as the screen reader label.
+
+- iOS: SwiftUI `TextField` / `SecureField` (Dynamic Type, autofill, keyboards).
+- Android: Compose `BasicTextField` with password masking for `secure`.
+- Web: Base UI `Field` + `Input`.
+
+Controlled like every other control: pass `value`, handle `onChangeText`. Keep
+form state and validation in `react-hook-form` + `zod`; the Form docs show the
+same `Controller` pattern.
+
+```tsx
+const [email, setEmail] = useState("");
+
+<Field
+  placeholder="Email"
+  value={email}
+  onChangeText={setEmail}
+  keyboardType="email-address"
+  autoComplete="email"
+  returnKeyType="next"
+  onSubmit={() => passwordRef.current?.focus()}
+/>;
+```
+
+## Sign up
+
+Autofill hints (`email`, `new-password`, `one-time-code`), return-key focus
+order and keyboard avoidance, wired the way the sign-up screen will be. Submit
+with an empty field to see the inline error and hear it announced.
+
+<Preview example="field/sign-up" />
+
+## Inline errors
+
+Pass a short `error` string. The field gets a 1pt destructive border and the
+message below in `meta` / `destructive`. It is announced to VoiceOver and
+TalkBack when it appears; there are no toasts. Errors stay until the parent
+clears them (re-validate on change with `mode: "onChange"`).
+
+<Preview example="field/error" />
+
+## Search
+
+`SearchField` defaults to `returnKeyType="search"`, disables autocorrect and
+shows a clear button once there is text.
+
+<Preview example="field/search" />
+
+## Do / don't
+
+- **Do** chain focus between fields: each `onSubmit` calls `focus()` on the
+  next field's `ref`; the last one submits.
+- **Do** use RN `autoComplete` values (`"email"`, `"new-password"`,
+  `"one-time-code"`, …). iOS maps them to `textContentType`; the web maps them
+  to HTML `autocomplete`.
+- **Don't** build error display around the field (toasts, alerts, red headers).
+  The inline message is the error state.
+- **Don't** use `label4` or arbitrary colors for the error; it is `destructive`
+  by design.
+
+## Accessibility
+
+- The placeholder is the field's accessible label on every platform.
+- `error` is announced once when it changes to a non-empty value
+  (`AccessibilityInfo.announceForAccessibility` natively, `role="alert"` on
+  web).
+- iOS keeps Dynamic Type: the field uses the system 17pt body font. Android
+  text is 17sp and scales with the font size setting.
+
+## Props
+
+<PropsTable path="field/types.ts" name="FieldProps" />
+<PropsTable path="field/types.ts" name="SearchFieldProps" />
