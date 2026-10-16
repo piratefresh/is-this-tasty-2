@@ -1,0 +1,52 @@
+---
+title: Picker
+description: Segmented tabs and filters, and a menu for longer lists.
+---
+
+Two wrappers with the same props: `options`, `selectedIndex`, `onChange`.
+
+- `SegmentedPicker`: 2 to 4 options. Home tabs, Reviews / Details, collection filters.
+- `MenuPicker`: 5 or more options. Country, style, sort order. Shows the current value.
+
+| | iOS | Android | Web |
+| --- | --- | --- | --- |
+| Segmented | SwiftUI segmented `Picker` | Compose segmented button row | Base UI `ToggleGroup` |
+| Menu | SwiftUI menu `Picker` | Exposed dropdown menu | Base UI `Select` |
+
+```tsx
+<SegmentedPicker options={["Activity", "Discover", "Dex"]} selectedIndex={tab} onChange={setTab} />
+<MenuPicker options={countries} selectedIndex={country} onChange={setCountry} />
+```
+
+## Why two sources
+
+The universal `Picker` from `@expo/ui` only has `menu` and `wheel`
+appearances, so it covers `MenuPicker` on every native platform. It has no
+segmented style. `@expo/ui/community/segmented-control` does (SwiftUI on iOS,
+Compose on Android), so `SegmentedPicker` uses that. The community `picker`
+is a drop-in for the same menu and adds nothing.
+
+Each segmented control brings its own `Host` (dark scheme, Android tint).
+`MenuPicker` sits in a `ThemedHost`. Make the picker's parent full width inside
+the 22pt screen inset.
+
+## Segmented
+
+<Preview example="picker/segmented" />
+
+## Menu
+
+Twelve options. The menu scrolls instead of running off the screen.
+
+<Preview example="picker/menu" />
+
+## Tabs without flicker
+
+Keep every pane mounted and hide the inactive ones. Hold the index in the
+screen's state, not in the picker, and it survives a push and back.
+
+<Preview example="picker/tabs" />
+
+## Props
+
+<PropsTable path="picker/types.ts" name="PickerProps" />
