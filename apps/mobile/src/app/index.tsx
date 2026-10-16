@@ -1,44 +1,23 @@
-import { Button, Column, Slider, Switch } from '@expo/ui';
-import { Stack } from 'expo-router';
-import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Link, Stack } from "expo-router";
+import { StyleSheet, View } from "react-native";
 
-import { Text, ThemedHost, screenInset, space } from "@is-this-tasty/ui";
+import { color, screenInset, space, Text } from "@is-this-tasty/ui";
 
-// ponytail: foundations smoke screen (STO-604/607). Becomes /dev/catalog in STO-620.
-export default function FoundationsScreen() {
-  const [on, setOn] = useState(true);
-  const [level, setLevel] = useState(0.6);
-
+export default function HomeScreen() {
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
-      <Stack.Screen options={{ title: 'Is This Tasty?' }} />
-
-      <View style={styles.group}>
-        <Text variant="eyebrow">Typography</Text>
-        <Text variant="display">Is This Tasty?</Text>
-        <Text variant="title">Pliny the Elder</Text>
-        <Text variant="subtitle">Russian River Brewing</Text>
-        <Text variant="body">Piney, resinous, bone dry. Dangerously drinkable for 8%.</Text>
-        <Text variant="label">Log a pour</Text>
-        <Text variant="meta">412 ratings</Text>
-      </View>
-
-      <View style={styles.group}>
-        <Text variant="eyebrow">Native controls</Text>
-        <ThemedHost matchContents={{ vertical: true }}>
-          <Column spacing={space[4]}>
-            <Switch value={on} onValueChange={setOn} label="Share to club" />
-            <Slider value={level} onValueChange={setLevel} />
-            <Button label="Log a pour" onPress={() => setOn((v) => !v)} />
-          </Column>
-        </ThemedHost>
-      </View>
-    </ScrollView>
+    <View style={styles.content}>
+      <Stack.Screen options={{ title: "Is This Tasty?" }} />
+      <Text variant="display">Is This Tasty?</Text>
+      {__DEV__ ? (
+        <Link href="/dev/catalog" asChild>
+          <Text variant="label" style={styles.link}>Open component catalog</Text>
+        </Link>
+      ) : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { padding: screenInset, gap: space[6] },
-  group: { gap: space[2] },
+  content: { flex: 1, padding: screenInset, gap: space[4] },
+  link: { color: color.tintText, paddingVertical: space[3], textDecorationLine: "underline" },
 });
