@@ -73,6 +73,17 @@ packages are UI peers supplied by the app; import them only from web files.
 - Use `matchContents` for rows and inline controls; `style={{ flex: 1 }}` for full-screen Forms.
 - Don't nest Hosts.
 
+**Theme verification (STO-604).** Open the catalog's **Native theme** example,
+or `/preview/theme/controls`, to exercise a raw universal Switch, Slider, and
+Button inside one `ThemedHost`. They intentionally do not use the standalone
+wrappers, so the example checks inherited theme rather than per-control colors.
+Switch between device light and dark appearances: the screen should remain dark
+and active controls violet (Android derives a Material palette from the tint).
+Toggle the switch, drag the slider, and press the button; the readouts confirm
+callbacks. Check cold launch and a catalog push separately for white flashes.
+Android rendering and callbacks have been exercised on an emulator; iOS,
+screen-reader checks, and frame-by-frame cold-start/push review remain required.
+
 ### Web styling
 
 - Web implementations use Base UI + `tv()` with token classes only. No arbitrary values such as `bg-[#…]`; shared ESLint rules reject arbitrary hex utilities.
