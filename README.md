@@ -38,7 +38,7 @@ pnpm --filter @is-this-tasty/mobile exec expo start --clear
 
 ## Design system
 
-Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on Android), currently **@expo/ui 57.0.25 on Expo SDK 57**. Prop names change between releases, so check the installed types before upgrading.
+Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on Android), currently **@expo/ui 58.0.18 on Expo SDK 58**. Prop names change between releases, so check the installed types before upgrading.
 
 Web wrappers use **@base-ui/react 1.9.0** and **tailwind-variants 3.3.1**,
 with Tailwind CSS **4.3.3** through Expo's PostCSS support. These runtime
@@ -48,7 +48,7 @@ packages are UI peers supplied by the app; import them only from web files.
 - Import `Text`, `ThemedHost`, and tokens from `@is-this-tasty/ui`, never app-local theme paths. Use `<Text variant="…">` for all text.
 - `pnpm --filter @is-this-tasty/ui check:contrast` checks text tokens against WCAG AA.
 - The app owns font loading and native dependencies. The UI package declares the native libraries it uses as peers; install them in the app with `pnpm --filter @is-this-tasty/mobile exec expo install <package>`. Do not add native runtime dependencies to the UI package.
-- Expo SDK 57 resolves workspace source through its automatic Metro monorepo support; no custom Metro config is needed.
+- Expo SDK 58 resolves workspace source through its automatic Metro monorepo support; no custom Metro config is needed.
 
 **Host rules.** Wrap native views in `ThemedHost` from `@is-this-tasty/ui`. It forces dark mode and the violet tint.
 

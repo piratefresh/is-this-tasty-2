@@ -22,7 +22,7 @@ This guide applies to the whole pnpm monorepo. Follow AGENTS.md, CONTEXT.md, the
 
 ## Expo and React Native
 
-- Design for iOS and Android first, while keeping web usable. Check the [versioned Expo SDK 57 reference](https://docs.expo.dev/versions/v57.0.0/) for APIs and platform support before changing Expo code.
+- Design for iOS and Android first, while keeping web usable. Check the [versioned Expo SDK 58 reference](https://docs.expo.dev/versions/v58.0.0/) for APIs and platform support before changing Expo code.
 - Prefer @expo/ui when it supports the component and target platform. Otherwise use an Expo or React Native component; write custom UI when the product needs behavior those components cannot supply. Keep platform-specific code behind a small adapter or platform file.
 - Use Expo Router for navigation. Keep routes as composition and wiring; move substantial screen behavior into focused components or hooks. Keep presentation components independent of room transport and engine details.
 - Use react-native-reanimated-dnd for drag and drop, with a tap path for accessibility and tests. The word builder strip's documented pan implementation is the sole current exception; see apps/mobile/src/components/word-builder/AGENTS.md before changing it.
