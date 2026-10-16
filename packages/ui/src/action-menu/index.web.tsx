@@ -1,5 +1,6 @@
 import { ContextMenu } from "@base-ui/react/context-menu";
 import { Menu } from "@base-ui/react/menu";
+import type { KeyboardEvent } from "react";
 import { tv } from "tailwind-variants";
 
 import { runItem } from "./confirm.web";
@@ -73,10 +74,24 @@ export function ActionMenu({ items, children, label, testID }: ActionMenuProps) 
   );
 }
 
-export function LongPressMenu({ items, children, testID }: ActionMenuProps) {
+export function LongPressMenu({ items, children, testID, onPress }: ActionMenuProps) {
   return (
     <ContextMenu.Root>
-      <ContextMenu.Trigger data-testid={testID}>{children}</ContextMenu.Trigger>
+      <ContextMenu.Trigger
+        data-testid={testID}
+        onClick={onPress}
+        {...(onPress && {
+          role: "button",
+          tabIndex: 0,
+          onKeyDown: (event: KeyboardEvent<HTMLElement>) => {
+            if (event.target !== event.currentTarget || (event.key !== "Enter" && event.key !== " ")) return;
+            event.preventDefault();
+            onPress();
+          },
+        })}
+      >
+        {children}
+      </ContextMenu.Trigger>
       <Popup P={ContextMenu} items={items} />
     </ContextMenu.Root>
   );

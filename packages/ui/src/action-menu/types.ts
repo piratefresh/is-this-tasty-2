@@ -17,6 +17,8 @@ export type ActionMenuProps = {
   items: ActionMenuItem[];
   /** The trigger: a "···" or "+" button, or any view for the long-press menu. */
   children: ReactNode;
+  /** Long-press menu only: tap handler for the wrapped row. The row must not contain its own Pressable, which would swallow the long-press on Android. */
+  onPress?: () => void;
   /** Screen reader name for the trigger on web. */
   label?: string;
   testID?: string;
