@@ -16,7 +16,7 @@ export type DrinkRowProps = {
   /** Replaces the compact rating. */
   trailing?: ReactNode;
   onPress?: () => void;
-  /** Long-press menu, usually the pour menu. Omit for no menu. */
+  /** Long-press menu, usually the pour menu (right-click on web, long-press on touch). Omit for no menu. */
   menu?: ActionMenuItem[];
   testID?: string;
 };
