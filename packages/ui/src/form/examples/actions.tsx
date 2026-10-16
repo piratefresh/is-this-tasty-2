@@ -1,19 +1,19 @@
 import { View } from "react-native";
 
-import { ButtonRow, SettingsForm, SettingsSection } from "..";
+import { ButtonRow, Form, FormSection } from "..";
 
 export function ActionRowsExample() {
   return (
     <View style={{ height: 280 }}>
-      <SettingsForm>
-        <SettingsSection title="Account">
+      <Form>
+        <FormSection title="Account">
           <ButtonRow label="Export my data" onPress={() => {}} />
           <ButtonRow label="Restore purchases" onPress={() => {}} disabled />
-        </SettingsSection>
-        <SettingsSection footer="Deletes your reviews and Dex. This can't be undone.">
+        </FormSection>
+        <FormSection footer="Deletes your reviews and Dex. This can't be undone.">
           <ButtonRow label="Delete account" onPress={() => {}} destructive />
-        </SettingsSection>
-      </SettingsForm>
+        </FormSection>
+      </Form>
     </View>
   );
 }

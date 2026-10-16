@@ -4,14 +4,14 @@ import { background, clickable, clip, fillMaxSize, fillMaxWidth, padding, Shapes
 import { SwitchControl } from "../switch/control";
 import { ThemedHost } from "../theme/themed-host";
 import { color, radius } from "../theme/tokens";
-import type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+import type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
-export type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+export type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
 const rowColors = { containerColor: color.surface };
 
 /** Scrolling Compose Column of sections. */
-export function SettingsForm({ children }: SettingsFormProps) {
+export function Form({ children }: FormProps) {
   return (
     <ThemedHost style={{ flex: 1 }}>
       <Column
@@ -25,7 +25,7 @@ export function SettingsForm({ children }: SettingsFormProps) {
 }
 
 /** Rows grouped on `surface` with a 12pt radius, Material settings style. */
-export function SettingsSection({ title, footer, children }: SettingsSectionProps) {
+export function FormSection({ title, footer, children }: FormSectionProps) {
   return (
     <Column verticalArrangement={{ spacedBy: 8 }} modifiers={[fillMaxWidth()]}>
       {title ? (

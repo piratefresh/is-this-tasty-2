@@ -4,7 +4,7 @@ import type { SwitchProps } from "./types";
 
 export type { SwitchProps } from "./types";
 
-/** Standalone labeled switch. Inside a SettingsForm use SwitchRow instead. */
+/** Standalone labeled switch. Inside a Form use SwitchRow instead. */
 export function Switch(props: SwitchProps) {
   return (
     <ThemedHost matchContents={{ vertical: true }}>

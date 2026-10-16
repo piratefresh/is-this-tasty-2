@@ -14,7 +14,7 @@ export default function HomeScreen() {
             <Text variant="label" style={styles.link}>Open component catalog</Text>
           </Link>
           <Link
-            href={{ pathname: "/preview/[component]/[example]", params: { component: "settings-form", example: "privacy" } }}
+            href={{ pathname: "/preview/[component]/[example]", params: { component: "form", example: "privacy" } }}
             asChild
           >
             <Text variant="label" style={styles.link}>Open settings form preview</Text>

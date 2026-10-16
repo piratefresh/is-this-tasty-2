@@ -1,25 +1,25 @@
 ---
-title: SettingsForm
-description: Grouped settings screen pattern with toggle, navigation and button rows.
+title: Form
+description: Grouped form for settings, account and edit screens, with toggle, navigation and button rows.
 ---
 
-The pattern for settings, visibility and account screens. Row height,
+The grouped form for settings, visibility, account and edit screens. Row height,
 separators and insets come from the system:
 
 - iOS: SwiftUI `Form` and `Section`.
 - Android: a scrolling Compose `Column` of `ListItem`s, grouped on `surface` with a 12pt radius.
 - Web: Base UI `Form` and `Fieldset`.
 
-`SettingsForm` fills its parent and scrolls, so give the parent a size
+`Form` fills its parent and scrolls, so give the parent a size
 (`flex: 1` on a screen).
 
 ```tsx
-<SettingsForm>
-  <SettingsSection title="Privacy" footer="Only approved people see a private profile.">
+<Form>
+  <FormSection title="Privacy" footer="Only approved people see a private profile.">
     <SwitchRow label="Private profile" value={isPrivate} onValueChange={setPrivate} />
     <NavigationRow label="Who can see reviews" value="Club only" onPress={openAudience} />
-  </SettingsSection>
-</SettingsForm>
+  </FormSection>
+</Form>
 ```
 
 ## Rows
@@ -51,16 +51,16 @@ const { control } = useForm({ resolver: zodResolver(schema), mode: "onChange", d
 
 Toggle and navigation rows. The audience row cycles in place until the choice sheet lands.
 
-<Preview example="settings-form/privacy" />
+<Preview example="form/privacy" />
 
 ## Button and destructive rows
 
 Put a destructive row in its own section, with a footer that explains what it deletes.
 
-<Preview example="settings-form/actions" />
+<Preview example="form/actions" />
 
 ## Props
 
-<PropsTable path="settings-form/types.ts" name="SettingsSectionProps" />
-<PropsTable path="settings-form/types.ts" name="NavigationRowProps" />
-<PropsTable path="settings-form/types.ts" name="ButtonRowProps" />
+<PropsTable path="form/types.ts" name="FormSectionProps" />
+<PropsTable path="form/types.ts" name="NavigationRowProps" />
+<PropsTable path="form/types.ts" name="ButtonRowProps" />

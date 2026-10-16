@@ -2,7 +2,7 @@ import type { ComponentType } from "react";
 
 import { buttonExamples } from "./button/examples";
 import { genreTagExamples } from "./genre-tag/examples";
-import { settingsFormExamples } from "./settings-form/examples";
+import { formExamples } from "./form/examples";
 import { starRatingExamples } from "./star-rating/examples";
 import { switchExamples } from "./switch/examples";
 import { textExamples } from "./text/examples";
@@ -17,7 +17,7 @@ export const catalog: readonly CatalogEntry[] = [
   textExamples,
   buttonExamples,
   switchExamples,
-  settingsFormExamples,
+  formExamples,
   genreTagExamples,
   starRatingExamples,
 ];

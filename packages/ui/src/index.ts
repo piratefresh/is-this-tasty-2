@@ -2,15 +2,15 @@ export { Button, type ButtonProps, type ButtonVariant } from "./button";
 export {
   ButtonRow,
   NavigationRow,
-  SettingsForm,
-  SettingsSection,
+  Form,
+  FormSection,
   SwitchRow,
   type ButtonRowProps,
   type NavigationRowProps,
-  type SettingsFormProps,
-  type SettingsSectionProps,
+  type FormProps,
+  type FormSectionProps,
   type SwitchRowProps,
-} from "./settings-form";
+} from "./form";
 export { Switch, type SwitchProps } from "./switch";
 export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
 export { StarRating, type StarRatingProps } from "./star-rating";

@@ -3,7 +3,7 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { View } from "react-native";
 import { z } from "zod";
 
-import { NavigationRow, SettingsForm, SettingsSection, SwitchRow } from "..";
+import { NavigationRow, Form, FormSection, SwitchRow } from "..";
 
 const audiences = { everyone: "Everyone", club: "Club only", private: "Only me" } as const;
 const audienceOrder = Object.keys(audiences) as (keyof typeof audiences)[];
@@ -29,8 +29,8 @@ export function PrivacySettingsExample() {
 
   return (
     <View style={{ height: 320 }}>
-      <SettingsForm>
-        <SettingsSection title="Privacy" footer="A private profile only shows your reviews to people you approve.">
+      <Form>
+        <FormSection title="Privacy" footer="A private profile only shows your reviews to people you approve.">
           <Controller
             control={control}
             name="privateProfile"
@@ -42,8 +42,8 @@ export function PrivacySettingsExample() {
             render={({ field }) => <SwitchRow label="Show in Discover" value={field.value} onValueChange={field.onChange} />}
           />
           <NavigationRow label="Who can see reviews" value={audiences[audience]} onPress={nextAudience} />
-        </SettingsSection>
-      </SettingsForm>
+        </FormSection>
+      </Form>
     </View>
   );
 }

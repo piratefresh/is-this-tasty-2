@@ -1,4 +1,4 @@
-import { Button, Form, HStack, Image, LabeledContent, Section, Text } from "@expo/ui/swift-ui";
+import { Button, Form as SwiftForm, HStack, Image, LabeledContent, Section, Text } from "@expo/ui/swift-ui";
 import {
   accessibilityHidden,
   background,
@@ -14,20 +14,20 @@ import {
 import { SwitchControl } from "../switch/control";
 import { ThemedHost } from "../theme/themed-host";
 import { color } from "../theme/tokens";
-import type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+import type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
-export type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+export type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
 /** SwiftUI Form. Row height, separators and insets come from the system. */
-export function SettingsForm({ children }: SettingsFormProps) {
+export function Form({ children }: FormProps) {
   return (
     <ThemedHost style={{ flex: 1 }}>
-      <Form modifiers={[scrollContentBackground("hidden"), background(color.bg)]}>{children}</Form>
+      <SwiftForm modifiers={[scrollContentBackground("hidden"), background(color.bg)]}>{children}</SwiftForm>
     </ThemedHost>
   );
 }
 
-export function SettingsSection({ title, footer, children }: SettingsSectionProps) {
+export function FormSection({ title, footer, children }: FormSectionProps) {
   return (
     <Section title={title} footer={footer ? <Text>{footer}</Text> : undefined}>
       {children}

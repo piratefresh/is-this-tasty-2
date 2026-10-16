@@ -1,11 +1,11 @@
 import { Fieldset } from "@base-ui/react/fieldset";
-import { Form } from "@base-ui/react/form";
+import { Form as BaseForm } from "@base-ui/react/form";
 import { tv } from "tailwind-variants";
 
 import { Switch } from "../switch";
-import type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+import type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
-export type { ButtonRowProps, NavigationRowProps, SettingsFormProps, SettingsSectionProps, SwitchRowProps } from "./types";
+export type { ButtonRowProps, NavigationRowProps, FormProps, FormSectionProps, SwitchRowProps } from "./types";
 
 const section = tv({
   slots: {
@@ -29,15 +29,15 @@ const row = tv({
 });
 
 /** Base UI Form. Settings save on change, so submit is a no-op. */
-export function SettingsForm({ children }: SettingsFormProps) {
+export function Form({ children }: FormProps) {
   return (
-    <Form className="flex flex-col gap-6 bg-bg py-4" onSubmit={(event) => event.preventDefault()}>
+    <BaseForm className="flex flex-col gap-6 bg-bg py-4" onSubmit={(event) => event.preventDefault()}>
       {children}
-    </Form>
+    </BaseForm>
   );
 }
 
-export function SettingsSection({ title, footer, children }: SettingsSectionProps) {
+export function FormSection({ title, footer, children }: FormSectionProps) {
   const { root, legend, rows, footer: footerClass } = section();
   return (
     <Fieldset.Root className={root()}>

@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 
 import type { SwitchProps } from "../switch/types";
 
-export type SettingsFormProps = {
-  /** SettingsSection elements. The form fills its parent and scrolls. */
+export type FormProps = {
+  /** FormSection elements. The form fills its parent and scrolls. */
   children: ReactNode;
 };
 
-export type SettingsSectionProps = {
+export type FormSectionProps = {
   /** Header. The platform sets the case (uppercase on iOS and web). */
   title?: string;
   footer?: string;
