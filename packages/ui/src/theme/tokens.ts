@@ -5,7 +5,7 @@ export const color = {
   bg: '#121214',
   surface: '#1a1a1d',
   surfaceAlt: '#1d1d20',
-  sheet: '#0d0d0f',
+  sheet: '#232327',
   separator: '#2c2c30',
   handle: '#3a3a40',
 

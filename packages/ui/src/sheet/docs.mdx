@@ -1,0 +1,46 @@
+---
+title: Sheet
+description: A native bottom sheet for short choice lists and small forms.
+---
+
+- `Sheet`: `isOpen`, `onClose`, `title`, optional `snapPoints` (`medium`, `large`), children.
+- `ChoiceSheet`: a single-select list. Tap a row to call `onSelect(index)` and close.
+
+| | iOS | Android | Web |
+| --- | --- | --- | --- |
+| Sheet | SwiftUI sheet | Material `ModalBottomSheet` | Base UI `Dialog` docked to the bottom |
+
+```tsx
+<ChoiceSheet
+  isOpen={open}
+  onClose={() => setOpen(false)}
+  title="Who can see this"
+  options={["Just me", "The Tavern", "All my clubs"]}
+  selectedIndex={selected}
+  onSelect={setSelected}
+/>
+```
+
+Built on the universal `BottomSheet` from `@expo/ui`. It mounts its own `Host`
+(or reuses the one it is nested in), so open it from a screen that already has
+a `ThemedHost`, such as a settings form. Children are plain React Native views.
+
+Swipe down, tap outside, Escape (web) or the back button (Android) call `onClose`.
+
+## Choice sheet
+
+<Preview example="sheet/who-can-see" />
+
+## With a text field
+
+<Preview example="sheet/with-field" />
+
+## Do / don't
+
+- Do keep it to a short list or one or two fields.
+- Do close the sheet from `onClose` only; it is controlled.
+- Don't stack sheets or put long scrolling content inside. Push a screen instead.
+
+## Props
+
+<PropsTable path="sheet/types.ts" name="SheetProps" />
