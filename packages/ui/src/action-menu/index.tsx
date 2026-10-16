@@ -1,4 +1,6 @@
-import { MenuView, type MenuAction } from "@expo/ui/community/menu";
+import { MenuView, type MenuAction, type MenuComponentRef } from "@expo/ui/community/menu";
+import { useRef } from "react";
+import { Platform, Pressable } from "react-native";
 
 import { runItem } from "./confirm";
 import type { ActionMenuItem, ActionMenuProps } from "./types";
@@ -22,9 +24,11 @@ function find(items: ActionMenuItem[], id: string): ActionMenuItem | undefined {
   return rest.length ? find(item?.items ?? [], rest.join(".")) : item;
 }
 
-function Menu({ items, children, testID, longPress }: ActionMenuProps & { longPress: boolean }) {
+function Menu({ items, children, testID, onPress, longPress }: ActionMenuProps & { longPress: boolean }) {
+  const menu = useRef<MenuComponentRef>(null);
   return (
     <MenuView
+      ref={menu}
       actions={toActions(items)}
       shouldOpenOnLongPress={longPress}
       onPressAction={({ nativeEvent }) => {
@@ -33,7 +37,15 @@ function Menu({ items, children, testID, longPress }: ActionMenuProps & { longPr
       }}
       testID={testID}
     >
-      {children}
+      {onPress ? (
+        // Android opens the menu from MenuView's own Pressable, which an inner tap target would
+        // swallow, so route the long-press through show(). iOS opens it natively.
+        <Pressable onPress={onPress} onLongPress={Platform.OS === "android" ? () => menu.current?.show() : undefined}>
+          {children}
+        </Pressable>
+      ) : (
+        children
+      )}
     </MenuView>
   );
 }

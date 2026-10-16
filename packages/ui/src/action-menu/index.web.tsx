@@ -73,10 +73,10 @@ export function ActionMenu({ items, children, label, testID }: ActionMenuProps) 
   );
 }
 
-export function LongPressMenu({ items, children, testID }: ActionMenuProps) {
+export function LongPressMenu({ items, children, testID, onPress }: ActionMenuProps) {
   return (
     <ContextMenu.Root>
-      <ContextMenu.Trigger data-testid={testID}>{children}</ContextMenu.Trigger>
+      <ContextMenu.Trigger data-testid={testID} onClick={onPress}>{children}</ContextMenu.Trigger>
       <Popup P={ContextMenu} items={items} />
     </ContextMenu.Root>
   );

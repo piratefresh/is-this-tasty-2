@@ -50,15 +50,14 @@ function describe({ drink, badge }: Pick<DrinkRowProps, "drink" | "badge">, cust
 
 export function DrinkRow({ drink, badge, trailing, onPress, menu, testID }: DrinkRowProps) {
   const hue = hueFor(drink.genre);
-  const row = (
-    <Pressable
-      accessible
-      accessibilityRole={onPress ? "button" : undefined}
-      accessibilityLabel={describe({ drink, badge }, trailing !== undefined)}
-      onPress={onPress}
-      testID={testID}
-      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
-    >
+  const a11y = {
+    accessible: true,
+    accessibilityRole: onPress ? ("button" as const) : undefined,
+    accessibilityLabel: describe({ drink, badge }, trailing !== undefined),
+    testID,
+  };
+  const content = (
+    <>
       <View style={styles.thumbWrap}>
         <View style={[styles.thumb, { borderColor: hue.dot }]}>
           {drink.imageUrl ? (
@@ -85,10 +84,22 @@ export function DrinkRow({ drink, badge, trailing, onPress, menu, testID }: Drin
         <Text variant="meta" numberOfLines={1}>{drink.producer}</Text>
       </View>
       {trailing ?? <Text variant="label" color="star">★ {drink.rating.toFixed(1)}</Text>}
-    </Pressable>
+    </>
   );
 
-  return menu ? <LongPressMenu items={menu}>{row}</LongPressMenu> : row;
+  // With a menu, the menu owns touch handling (see ActionMenuProps.onPress): no Pressable inside it.
+  if (menu) {
+    return (
+      <LongPressMenu items={menu} onPress={onPress}>
+        <View {...a11y} style={styles.row}>{content}</View>
+      </LongPressMenu>
+    );
+  }
+  return (
+    <Pressable {...a11y} onPress={onPress} style={({ pressed }) => [styles.row, pressed && styles.pressed]}>
+      {content}
+    </Pressable>
+  );
 }
 
 const styles = StyleSheet.create({
