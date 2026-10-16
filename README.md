@@ -48,12 +48,22 @@ Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on 
 - Use `matchContents` for rows and inline controls; `style={{ flex: 1 }}` for full-screen Forms.
 - Don't nest Hosts.
 
+### Development catalog
+
+Open **Open component catalog** on the development home screen, or navigate
+directly to `/dev/catalog`. The scrollable catalog shows token-derived color
+swatches (including category colors), spacing, radii, and every registered example.
+Release builds redirect this route to `/` and omit the home-screen link.
+
+The registry is exported separately as `@is-this-tasty/ui/catalog`; production
+components should import the normal `@is-this-tasty/ui` entry point.
+
 ### How to add a component
 
 1. Copy the reference layout in `packages/ui/src/text/` into `packages/ui/src/<name>/`: `index.tsx`, `examples/*.tsx`, and `docs.mdx`.
 2. Implement the native component. For native wrappers, add `index.web.tsx` using Base UI + Tailwind once the web layer lands (STO-625). Custom RN components such as Text share their implementation with web.
 3. Export the public component and props from `packages/ui/src/index.ts`. Consumers import only from `@is-this-tasty/ui`; keep internal helpers private.
-4. Add one named example per state and a `<Preview>` for each in `docs.mdx`, plus usage and do/don't guidance. The catalog (STO-626) and docs site (STO-621) consume these examples; the docs renderer supplies `Preview`.
+4. Add one named example per state and a `<Preview>` for each in `docs.mdx`, plus usage and do/don't guidance. Export `{ name, examples: [{ title, Component }] }` from the component's `examples/index.ts`, then add that group to `packages/ui/src/catalog.ts`. No app-side list changes are needed. The docs renderer supplies `Preview`.
 5. Run `pnpm check`, exercise the examples on iOS, Android, and web, and record screenshots plus accessibility checks or explicit device limitations.
 
 `Text` has seven examples, one per typography variant. Its React Native implementation already supports web, so it needs no duplicate `index.web.tsx`.
