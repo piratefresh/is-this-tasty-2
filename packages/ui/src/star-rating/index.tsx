@@ -6,6 +6,7 @@ import { GestureDetector, useCompetingGestures, usePanGesture, useTapGesture } f
 import { Text } from "../text";
 import { color, radius, space } from "../theme/tokens";
 import { normalizeRating, ratingAtPosition, selectRating, STAR_COUNT, STAR_GAP } from "./rating";
+import { RatingStar } from "./rating-star";
 
 export type StarRatingProps = {
   value: number;
@@ -114,18 +115,7 @@ export function StarRating({
   const stars = (
     <View aria-hidden style={styles.stars}>
       {Array.from({ length: STAR_COUNT }, (_, index) => (
-        <View key={index} style={{ width: starSize, height: starSize }}>
-          <Text
-            variant="body" color="handle" allowFontScaling={false}
-            style={[styles.glyph, { fontSize: starSize, lineHeight: starSize, width: starSize }]}
-          >★</Text>
-          <View style={[styles.fill, { width: starSize * Math.max(0, Math.min(1, rating - index)) }]}>
-            <Text
-              variant="body" color="star" allowFontScaling={false}
-              style={[styles.glyph, { fontSize: starSize, lineHeight: starSize, width: starSize }]}
-            >★</Text>
-          </View>
-        </View>
+        <RatingStar key={index} size={starSize} fill={Math.max(0, Math.min(1, rating - index))} />
       ))}
     </View>
   );
@@ -152,8 +142,6 @@ export function StarRating({
 const styles = StyleSheet.create({
   root: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: space[2] },
   stars: { flexDirection: "row", gap: STAR_GAP },
-  glyph: { textAlign: "center", includeFontPadding: false, userSelect: "none" },
-  fill: { position: "absolute", top: 0, left: 0, bottom: 0, overflow: "hidden" },
   input: { minHeight: 44, justifyContent: "center", borderRadius: radius.xs, alignSelf: "flex-start" },
   focused: { outlineWidth: 2, outlineColor: color.tintText, outlineStyle: "solid" },
 });

@@ -10,6 +10,8 @@ import { SwipeableRatingExample } from "./examples/swipeable-row";
 Custom React Native stars shared by iOS, Android, and web. Filled stars use the
 `star` token, empty stars use `handle`, and half stars clip the filled glyph.
 Stars have a 4pt gap. The value uses Spectral title text; counts use meta text.
+Fill changes animate over 140ms with Reanimated, respecting the system's Reduce
+Motion setting. Values and accessibility announcements update immediately.
 
 ```tsx
 import { StarRating } from "@is-this-tasty/ui";

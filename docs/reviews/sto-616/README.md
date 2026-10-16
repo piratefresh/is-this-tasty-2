@@ -22,6 +22,10 @@ Chromium at a 390px viewport:
 - A quick row swipe beginning on the stars reveals actions without changing
   the rating. Holding first adjusts the rating without moving the row.
 - Arrow keys change by 0.5; Home/End select 0/5; adjustments stop at the bounds.
+- Reanimated 4.7.1 animates fill changes over 140ms. Browser mutation sampling
+  confirms intermediate widths during a change; reduced-motion emulation
+  skips intermediate widths and reaches the target immediately. The existing
+  Reanimated/Worklets versions pass Expo's dependency compatibility check.
 - Inputs expose their names, 0–5 bounds, numeric values, and “N out of 5 stars”.
 - Scoped axe 4.12.1 audit of `[role=slider]`: 14 passes, 0 violations, one
   incomplete contrast check for decorative star glyphs. Glyphs are aria-hidden
