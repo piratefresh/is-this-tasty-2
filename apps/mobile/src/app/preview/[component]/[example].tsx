@@ -1,3 +1,4 @@
+import { catalog } from "@is-this-tasty/ui/catalog";
 import { Stack, useLocalSearchParams } from "expo-router";
 import type { Metadata } from "expo-router/server";
 
@@ -17,20 +18,7 @@ export function generateMetadata(): Metadata {
   return { title: "Component preview · Is This Tasty?" };
 }
 
-export async function generateStaticParams(): Promise<{ component: string; example: string }[]> {
-  // Node-only work stays inside the export function; native never imports fs.
-  const { readdir, readFile } = await import("node:fs/promises");
-  const path = await import("node:path");
-  const base = path.resolve(process.cwd(), "../../packages/ui/src");
-  const params: { component: string; example: string }[] = [];
-  for (const entry of await readdir(base, { withFileTypes: true })) {
-    if (!entry.isDirectory()) continue;
-    const files = await readdir(path.join(base, entry.name));
-    if (!files.includes("docs.mdx")) continue;
-    const mdx = await readFile(path.join(base, entry.name, "docs.mdx"), "utf8");
-    for (const match of mdx.matchAll(/<Preview example="([a-z0-9-]+)\/([a-z0-9-]+)"/g)) {
-      params.push({ component: match[1], example: match[2] });
-    }
-  }
-  return params;
+// Every catalog example; documented previews are a subset (checked by scripts/record-previews.test.mjs).
+export function generateStaticParams(): { component: string; example: string }[] {
+  return catalog.flatMap(({ id, examples }) => examples.map((example) => ({ component: id, example: example.id })));
 }
