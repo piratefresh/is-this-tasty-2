@@ -50,3 +50,8 @@ With a custom `trailing`, the rating is dropped from the label; describe the tra
 ## Props
 
 <PropsTable path="drink-row/index.tsx" name="DrinkRowProps" />
+
+## Enhancements
+
+- **Virtualization.** The 200-row example uses `FlatList`. If it drops frames on a mid-range Android device, swap in LegendList (a `FlatList`-style API that also runs on react-native-web, so web needs no separate virtualizer). On iOS, `@expo/ui`'s native `List` recycles rows already.
+- **Native swipe and reorder.** Swipe actions use RNGH today. Move to native `List` with `SwipeActions` and `onMove` once it can be checked on a device.
