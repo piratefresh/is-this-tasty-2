@@ -47,7 +47,7 @@ Docs: https://docs.expo.dev/eas/index.md
 ## Monorepo layout
 
 - Use pnpm from the repository root. The Expo app lives in `apps/mobile`; paths such as `src/app`, `app.json`, and native directories above are relative to that app.
-- Run `pnpm lint` and `pnpm typecheck` from the root.
+- Run `pnpm check` from the root (lint, typecheck, contrast). CI runs the same steps.
 - Run app-specific CLI commands with `pnpm --filter @is-this-tasty/mobile exec <command>`.
 - Add apps under `apps/*` and shared packages under `packages/*`. Use `workspace:*` for local package dependencies.
 
