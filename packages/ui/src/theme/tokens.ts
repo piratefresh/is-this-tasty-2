@@ -15,6 +15,9 @@ export const color = {
   label3: '#8a8a90',
   label4: '#6e6e74', // icon-only, below 4.5:1 by design
 
+  // Neutral primary pill fill; its text uses `bg`
+  primaryFill: '#ececec',
+
   // Accent: the only chromatic UI color
   tint: '#a07cff',
   tintInk: '#170a2e',
