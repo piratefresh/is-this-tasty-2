@@ -2,7 +2,7 @@
 // Run: node scripts/check-contrast.mjs
 import assert from 'node:assert/strict';
 
-import { color } from '../src/theme/tokens.ts';
+import { category, categoryFallback, color } from '../src/theme/tokens.ts';
 
 const luminance = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => {
@@ -24,4 +24,10 @@ for (const bg of ['bg', 'surface']) {
     assert.ok(ratio >= 4.5, `${fg} on ${bg} is ${ratio.toFixed(2)}:1`);
     console.log(`${fg} on ${bg}: ${ratio.toFixed(2)}:1`);
   }
+}
+
+for (const [genre, hue] of [...Object.entries(category), ['fallback', categoryFallback]]) {
+  const ratio = contrast(hue.text, color.separator);
+  assert.ok(ratio >= 4.5, `${genre} on separator is ${ratio.toFixed(2)}:1`);
+  console.log(`${genre} on separator: ${ratio.toFixed(2)}:1`);
 }

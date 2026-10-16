@@ -1,3 +1,4 @@
+export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
 export { Text, type TextProps } from "./text";
 export { ThemedHost } from "./theme/themed-host";
 export {
