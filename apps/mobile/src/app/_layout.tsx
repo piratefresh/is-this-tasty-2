@@ -46,7 +46,9 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: color.bg },
             headerTitleStyle: { fontFamily: font.display },
           }}
-        />
+        >
+          <Stack.Screen name="preview/[component]/[example]" options={{ headerShown: false }} />
+        </Stack>
       </ThemeProvider>
     </GestureHandlerRootView>
   );

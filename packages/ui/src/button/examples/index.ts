@@ -5,12 +5,13 @@ import { SecondaryButtonExample } from "./secondary";
 import { TintedButtonExample } from "./tinted";
 
 export const buttonExamples = {
+  id: "button",
   name: "Button",
   examples: [
-    { title: "Primary", Component: PrimaryButtonExample },
-    { title: "Tinted", Component: TintedButtonExample },
-    { title: "Secondary", Component: SecondaryButtonExample },
-    { title: "Plain", Component: PlainButtonExample },
-    { title: "Destructive", Component: DestructiveButtonExample },
+    { id: "primary", title: "Primary", Component: PrimaryButtonExample },
+    { id: "tinted", title: "Tinted", Component: TintedButtonExample },
+    { id: "secondary", title: "Secondary", Component: SecondaryButtonExample },
+    { id: "plain", title: "Plain", Component: PlainButtonExample },
+    { id: "destructive", title: "Destructive", Component: DestructiveButtonExample },
   ],
 };

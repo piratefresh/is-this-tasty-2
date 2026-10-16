@@ -7,8 +7,9 @@ import { starRatingExamples } from "./star-rating/examples";
 import { textExamples } from "./text/examples";
 
 export type CatalogEntry = {
+  id: string;
   name: string;
-  examples: readonly { title: string; Component: ComponentType }[];
+  examples: readonly { id: string; title: string; Component: ComponentType }[];
 };
 
 export const catalog: readonly CatalogEntry[] = [textExamples, buttonExamples, genreTagExamples, starRatingExamples, ...webExamples];

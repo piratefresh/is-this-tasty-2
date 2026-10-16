@@ -1,0 +1,7 @@
+appId: com.piratefresh.isthistasty2
+---
+- runFlow: primary.yaml
+- runFlow: tinted.yaml
+- runFlow: secondary.yaml
+- runFlow: plain.yaml
+- runFlow: destructive.yaml

@@ -1,15 +1,12 @@
-import { CurrentGenresExample } from "./examples/current-genres";
-import { UnknownGenreExample } from "./examples/unknown";
-import { OverflowExample } from "./examples/overflow";
-import { WrappingExample } from "./examples/wrapping";
-
-# GenreTag
+---
+title: GenreTag
+description: Shared GenreTag component, usage, and platform examples.
+---
 
 Display-only drink categories. One React Native implementation serves iOS,
 Android, and web; no native Host is needed.
 
 ```tsx
-import { GenreTag, GenreTagList } from "@is-this-tasty/ui";
 
 <GenreTag genre="DIPA" />;
 <GenreTagList genres={["DIPA", "Rosé", "Bourbon"]} />;
@@ -19,7 +16,7 @@ import { GenreTag, GenreTagList } from "@is-this-tasty/ui";
 
 Hues come from every key in the shared `category` map, not UI chrome colors.
 
-<Preview><CurrentGenresExample /></Preview>
+<Preview example="genre-tag/current-genres" />
 
 ## Unknown genre
 
@@ -27,7 +24,7 @@ Unknown names retain their label and use `categoryFallback`. Fallback text uses
 `label2`, not `label3`, to meet 4.5:1 contrast on the `separator` chip fill.
 Lookup is exact and case-sensitive; inherited object keys are unknown names too.
 
-<Preview><UnknownGenreExample /></Preview>
+<Preview example="genre-tag/unknown" />
 
 ## Overflow
 
@@ -35,14 +32,14 @@ Lists show the first three tags, then a non-interactive `+N` chip. Its accessibl
 label includes the omitted genre names. Input order and duplicates are preserved.
 An empty list renders nothing.
 
-<Preview><OverflowExample /></Preview>
+<Preview example="genre-tag/overflow" />
 
 ## Wrapping
 
 Lists wrap with an 8pt gap. Labels can wrap and respect system font scaling;
 there is no fixed chip height or truncation.
 
-<Preview><WrappingExample /></Preview>
+<Preview example="genre-tag/wrapping" />
 
 ## Typography and accessibility
 
@@ -61,3 +58,9 @@ added. `pnpm check` verifies category and fallback text contrast on the chip fil
 - **Do** add product-approved hues to the shared token map and regenerate CSS.
 - **Don't** make tags tappable; use Picker or ContextMenu for filtering.
 - **Don't** use genre colors to decorate navigation or other UI chrome.
+
+## Props
+
+<PropsTable path="genre-tag/index.tsx" name="GenreTagProps" />
+
+<PropsTable path="genre-tag/index.tsx" name="GenreTagListProps" />

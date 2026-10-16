@@ -1,0 +1,33 @@
+---
+title: Preview recordings
+description: Capture the real native component on a simulator or emulator.
+---
+
+Web previews are live Expo pages. Native tabs play recorded device output;
+missing recordings are stated explicitly. A web preview does not verify the
+SwiftUI or Compose implementation.
+
+## Setup
+
+Use a development build with the `isthistasty2` URL scheme. Start Metro with
+`pnpm dev` and connect the device. Install Maestro and ffmpeg. iOS needs a
+Mac, Xcode, and a booted simulator. Android needs adb and one connected
+emulator or device; use `ANDROID_SERIAL` to select among several devices.
+
+```sh
+pnpm previews:record button ios
+pnpm previews:record button android
+```
+
+The script opens each documented example through a Maestro flow, waits for its
+test ID, and captures it with `xcrun simctl io booted recordVideo` or
+`adb shell screenrecord`. ffmpeg trims startup frames and writes
+`apps/docs/public/previews/button/<example>.<platform>.mp4`.
+
+Restart the docs server or rebuild after adding recordings. Review each clip
+before committing it. Videos are useful for appearance and pressed states;
+separately review VoiceOver/TalkBack, Dynamic Type, focus, and real haptics.
+
+Flows live under `apps/mobile/.maestro/native/previews/`. They are generated
+from the component's documented preview IDs by the recording script. Use
+`pnpm previews:record button --flows-only` to regenerate without a device.

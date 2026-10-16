@@ -6,6 +6,7 @@ A pnpm monorepo containing the Expo / React Native app.
 
 - `apps/mobile`: Expo app, including routes in `src/app`, assets, and app configuration.
 - `packages/ui`: Shared design tokens, typography, themed native host, and component examples/docs.
+- `apps/docs`: Next.js + Fumadocs reference site, reading component MDX directly from `packages/ui`.
 - `pnpm-workspace.yaml` and `pnpm-lock.yaml`: Workspace configuration and shared dependency lockfile.
 
 ## Development
@@ -26,6 +27,22 @@ The workspace uses pnpm's hoisted node linker to keep Windows native build paths
 ```sh
 pnpm check # lint + typecheck + UI behavior tests + contrast + token CSS freshness, same as CI
 ```
+
+### Component docs
+
+Run `pnpm dev` (Expo on port 8081) and `pnpm docs` (docs on port 3000).
+The Web tab embeds the same component examples used by the device catalog at
+`/preview/<component>/<example>`. Set `PREVIEW_ORIGIN` when Expo is hosted
+elsewhere. `pnpm previews:export` exports these routes for static serving;
+`pnpm docs:build` checks the production docs build.
+
+Component pages come from `packages/ui/src/*/docs.mdx`, and props tables read
+the exported TypeScript types. Use `<Preview example="button/destructive" />`
+for a live example with its source code and native video tabs. Native recordings
+are optional until captured on real runtimes; absent clips are labeled.
+See the site's **Preview recordings** page for tool requirements and run
+`pnpm previews:record button ios` or `pnpm previews:record button android`.
+Run `pnpm previews:record button --flows-only` to regenerate Maestro flows.
 
 To run app-specific commands:
 
