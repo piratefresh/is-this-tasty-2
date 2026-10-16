@@ -347,6 +347,9 @@ importers:
       expo-haptics:
         specifier: ~58.0.6
         version: 58.0.6(expo@58.0.11)
+      expo-router:
+        specifier: ~58.0.20
+        version: 58.0.20(9181853dbe7e96fc92ebdc3fcdf22bfe)
       motion:
         specifier: ^14.2.0
         version: 14.2.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)

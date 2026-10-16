@@ -14,6 +14,7 @@ export {
 export { Switch, type SwitchProps } from "./switch";
 export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
 export { Field, SearchField, type FieldAutoComplete, type FieldProps, type FieldRef, type SearchFieldProps } from "./field";
+export { MenuPicker, SegmentedPicker, type PickerProps } from "./picker";
 export { StarRating, type StarRatingProps } from "./star-rating";
 export { Text, type TextProps } from "./text";
 export { ThemedHost } from "./theme/themed-host";
