@@ -1,0 +1,33 @@
+---
+title: Switch
+description: Labeled on/off toggle with the violet tint.
+---
+
+Native toggle: SwiftUI `Toggle` on iOS, a Compose `ListItem` + `Switch` on
+Android, Base UI `Switch` in a `Field` on web. The on-state uses the violet
+tint. Toggling plays a light haptic on iOS and Android (iOS: the system
+default; Android: `toggle-on` / `toggle-off`).
+
+```tsx
+<Switch label="Share to club" value={share} onValueChange={setShare} />
+```
+
+`label` is required: VoiceOver and TalkBack read it with the state. The whole
+row is the hit target.
+
+Inside a `SettingsForm`, use `SwitchRow` instead. It skips the extra Host and
+uses the form's row background.
+
+## On and off
+
+<Preview example="switch/states" />
+
+## Disabled
+
+Use it for settings the user can't change right now. Say why in a section footer.
+
+<Preview example="switch/disabled" />
+
+## Props
+
+<PropsTable path="switch/types.ts" name="SwitchProps" />

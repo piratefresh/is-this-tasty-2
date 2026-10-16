@@ -29,10 +29,13 @@
     "tailwind-variants": "3.3.1"
   },
   "devDependencies": {
+    "@hookform/resolvers": "5.9.1",
     "@types/react": "~19.3.0",
     "eslint": "^9.39.5",
     "eslint-config-expo": "~58.0.4",
-    "typescript": "~6.0.3"
+    "react-hook-form": "7.90.0",
+    "typescript": "~6.0.3",
+    "zod": "4.6.7"
   },
   "dependencies": {
     "motion": "^14.2.0"
