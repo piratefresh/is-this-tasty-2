@@ -1,0 +1,66 @@
+---
+title: SettingsForm
+description: Grouped settings screen pattern with toggle, navigation and button rows.
+---
+
+The pattern for settings, visibility and account screens. Row height,
+separators and insets come from the system:
+
+- iOS: SwiftUI `Form` and `Section`.
+- Android: a scrolling Compose `Column` of `ListItem`s, grouped on `surface` with a 12pt radius.
+- Web: Base UI `Form` and `Fieldset`.
+
+`SettingsForm` fills its parent and scrolls, so give the parent a size
+(`flex: 1` on a screen).
+
+```tsx
+<SettingsForm>
+  <SettingsSection title="Privacy" footer="Only approved people see a private profile.">
+    <SwitchRow label="Private profile" value={isPrivate} onValueChange={setPrivate} />
+    <NavigationRow label="Who can see reviews" value="Club only" onPress={openAudience} />
+  </SettingsSection>
+</SettingsForm>
+```
+
+## Rows
+
+- `SwitchRow`: label and a switch. The whole row toggles.
+- `NavigationRow`: label and the current value. It opens a sheet or screen. On iOS the value sits before a chevron. On Android it shows as supporting text under the label (Material has no chevron).
+- `ButtonRow`: a tinted action. `destructive` uses the system destructive role.
+
+Don't put custom views inside a section. If you need a new row type, add it here.
+
+## Forms with react-hook-form and zod
+
+The rows are controlled (`value` + `onValueChange`) and don't know about any
+form library. Keep form state in `react-hook-form`, validate it with a `zod`
+schema through `zodResolver`, and bind each row with `Controller`:
+
+```tsx
+const schema = z.object({ privateProfile: z.boolean() });
+const { control } = useForm({ resolver: zodResolver(schema), mode: "onChange", defaultValues });
+
+<Controller
+  control={control}
+  name="privateProfile"
+  render={({ field }) => <SwitchRow label="Private profile" value={field.value} onValueChange={field.onChange} />}
+/>
+```
+
+## Privacy
+
+Toggle and navigation rows. The audience row cycles in place until the choice sheet lands.
+
+<Preview example="settings-form/privacy" />
+
+## Button and destructive rows
+
+Put a destructive row in its own section, with a footer that explains what it deletes.
+
+<Preview example="settings-form/actions" />
+
+## Props
+
+<PropsTable path="settings-form/types.ts" name="SettingsSectionProps" />
+<PropsTable path="settings-form/types.ts" name="NavigationRowProps" />
+<PropsTable path="settings-form/types.ts" name="ButtonRowProps" />
