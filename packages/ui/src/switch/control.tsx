@@ -40,7 +40,8 @@ export function SwitchControl({ label, value, onValueChange, disabled, testID, c
         <ComposeText color={disabled ? color.label3 : color.label}>{label}</ComposeText>
       </ListItem.HeadlineContent>
       <ListItem.TrailingContent>
-        <ComposeSwitch value={value} enabled={!disabled} colors={switchColors} />
+        {/* Expo always gives the native Switch a click handler, so it eats taps unless it toggles too. */}
+        <ComposeSwitch value={value} enabled={!disabled} colors={switchColors} onCheckedChange={toggle} />
       </ListItem.TrailingContent>
     </ListItem>
   );
