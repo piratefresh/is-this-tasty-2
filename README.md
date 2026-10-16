@@ -20,8 +20,7 @@ pnpm dev
 Open Android, iOS, or web with `pnpm android`, `pnpm ios`, or `pnpm web`.
 
 ```sh
-pnpm lint
-pnpm typecheck
+pnpm check # lint + typecheck + contrast, same as CI
 ```
 
 To run app-specific commands:
