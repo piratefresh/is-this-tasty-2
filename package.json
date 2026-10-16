@@ -13,6 +13,6 @@
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "tokens": "pnpm --filter @is-this-tasty/ui tokens",
-    "check": "pnpm lint && pnpm typecheck && pnpm --filter @is-this-tasty/ui check:contrast && pnpm --filter @is-this-tasty/ui check:tokens"
+    "check": "pnpm lint && pnpm typecheck && pnpm --filter @is-this-tasty/ui test && pnpm --filter @is-this-tasty/ui check:contrast && pnpm --filter @is-this-tasty/ui check:tokens"
   }
 }

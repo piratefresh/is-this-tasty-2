@@ -1,0 +1,73 @@
+import { EmptyRatingExample } from "./examples/empty";
+import { HalfRatingExample } from "./examples/half";
+import { PartialRatingExample } from "./examples/partial";
+import { FullRatingExample } from "./examples/full";
+import { RatingInputExample } from "./examples/input";
+import { SwipeableRatingExample } from "./examples/swipeable-row";
+
+# StarRating
+
+Custom React Native stars shared by iOS, Android, and web. Filled stars use the
+`star` token, empty stars use `handle`, and half stars clip the filled glyph.
+Stars have a 4pt gap. The value uses Spectral title text; counts use meta text.
+
+```tsx
+import { StarRating } from "@is-this-tasty/ui";
+
+<StarRating value={3.5} showValue count={412} />;
+<StarRating value={rating} onChange={setRating} accessibilityLabel="Your rating" />;
+```
+
+| Prop | Behavior |
+| --- | --- |
+| `value` | Controlled rating, clamped to 0–5 and rounded to half steps. Non-finite values display 0. |
+| `onChange` | Omit for read-only display. Input emits half steps only when selection changes. |
+| `size` | Glyph size in points. Defaults to 16 for display, 30 for input. |
+| `showValue` | Show the rating to one decimal place. |
+| `count` | Optional rating count, including zero; singular for one rating. |
+| `accessibilityLabel` | Defaults to “Rating”; name the drink or input when several ratings are nearby. |
+
+The app must place gesture controls under `GestureHandlerRootView` (already
+configured in the mobile app). This custom RN component needs no `ThemedHost`.
+
+## Display states
+
+Read-only ratings expose one image with “Rating: N out of 5 stars”, with an
+optional separate count. Decorative star glyphs and the duplicate value are
+hidden from screen readers.
+
+<Preview><EmptyRatingExample /></Preview>
+<Preview><HalfRatingExample /></Preview>
+<Preview><PartialRatingExample /></Preview>
+<Preview><FullRatingExample /></Preview>
+
+## Input
+
+Tap a star's left half for a half step, or its right half for a whole step.
+Hold for 200ms, then drag horizontally to scrub. Drag beyond the left edge to
+clear to zero; beyond the right edge selects five. The input has a minimum
+44pt height and vertical hit slop. Each changed step fires selection haptics
+on native; web skips feedback. Adding `expo-haptics` requires a new native build.
+
+VoiceOver/TalkBack expose one adjustable control with its current value and
+increment/decrement actions in half steps. On web, Tab focuses the slider,
+arrow keys adjust it, Home clears it, and End selects five. Focus is visible.
+
+<Preview><RatingInputExample /></Preview>
+
+## Swipeable list row
+
+Normal horizontal swipes still reveal row actions, including swipes starting
+on the stars. Hold first to reserve the gesture for rating. Vertical movement
+fails the rating gesture early so the surrounding list can scroll. The example
+also exposes a button to open row actions without a swipe.
+
+<Preview><SwipeableRatingExample /></Preview>
+
+Do use display mode in dense drink lists and input mode when asking for a
+rating. Do provide a meaningful accessible label. Don't attach an `onChange`
+to read-only summaries or depend on color alone to communicate the value.
+
+Run `pnpm --filter @is-this-tasty/ui test` for half-step geometry and feedback
+deduplication checks. Native device review must additionally check actual
+haptics, screen-reader adjustment, list scrolling, and swipe/scrub competition.
