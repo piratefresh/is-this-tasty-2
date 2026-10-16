@@ -4,6 +4,7 @@ import { Platform, StyleSheet, View, type KeyDownEvent } from "react-native";
 import { GestureDetector, useCompetingGestures, usePanGesture, useTapGesture } from "react-native-gesture-handler";
 
 import { Text } from "../text";
+import { NumberFlow } from "../number-flow";
 import { color, radius, space } from "../theme/tokens";
 import { normalizeRating, ratingAtPosition, selectRating, STAR_COUNT, STAR_GAP } from "./rating";
 import { RatingStar } from "./rating-star";
@@ -132,7 +133,7 @@ export function StarRating({
         </View>
       )}
       {showValue ? (
-        <Text variant="title" accessibilityRole="text" aria-hidden>{rating.toFixed(1)}</Text>
+        <NumberFlow value={rating} decimals={1} fontSize={22} fontWeight="normal" />
       ) : null}
       {countLabel ? <Text variant="meta">{countLabel}</Text> : null}
     </View>

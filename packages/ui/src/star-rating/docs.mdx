@@ -12,6 +12,10 @@ Custom React Native stars shared by iOS, Android, and web. Filled stars use the
 Stars have a 4pt gap. The value uses Spectral title text; counts use meta text.
 Fill changes animate over 140ms with Reanimated, respecting the system's Reduce
 Motion setting. Values and accessibility announcements update immediately.
+The optional value uses [Reacticx Number Flow](https://www.reacticx.com/components/number-flow)
+for rolling digits, adapted to Spectral title typography and the same Reduce
+Motion behavior. The rolling glyphs are hidden from screen readers; the rating
+control supplies its current value as one announcement.
 
 ```tsx
 import { StarRating } from "@is-this-tasty/ui";
