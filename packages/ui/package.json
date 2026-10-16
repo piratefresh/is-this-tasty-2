@@ -12,12 +12,17 @@
   "scripts": {
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "tokens": "node --no-warnings scripts/gen-tokens-css.mjs",
+    "check:tokens": "node --no-warnings scripts/gen-tokens-css.mjs --check",
     "check:contrast": "node --no-warnings scripts/check-contrast.mjs"
   },
   "peerDependencies": {
+    "@base-ui/react": "1.9.0",
     "@expo/ui": "~57.0.25",
     "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "tailwind-variants": "3.3.1"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",

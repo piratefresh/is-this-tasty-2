@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 
+import { webExamples } from "./examples";
 import { textExamples } from "./text/examples";
 
 export type CatalogEntry = {
@@ -7,4 +8,4 @@ export type CatalogEntry = {
   examples: readonly { title: string; Component: ComponentType }[];
 };
 
-export const catalog: readonly CatalogEntry[] = [textExamples];
+export const catalog: readonly CatalogEntry[] = [textExamples, ...webExamples];

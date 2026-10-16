@@ -1,3 +1,5 @@
+import "../../global.css";
+
 import { Cinzel_600SemiBold } from '@expo-google-fonts/cinzel';
 import { Spectral_400Regular, Spectral_600SemiBold } from '@expo-google-fonts/spectral';
 import { DarkTheme, Stack, ThemeProvider } from 'expo-router';

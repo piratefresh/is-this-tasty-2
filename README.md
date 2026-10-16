@@ -24,7 +24,7 @@ Use `pnpm android:build` to select the Android emulator or device explicitly.
 The workspace uses pnpm's hoisted node linker to keep Windows native build paths short enough for the Android NDK tooling.
 
 ```sh
-pnpm check # lint + typecheck + contrast, same as CI
+pnpm check # lint + typecheck + contrast + token CSS freshness, same as CI
 ```
 
 To run app-specific commands:
@@ -40,6 +40,10 @@ pnpm --filter @is-this-tasty/mobile exec expo start --clear
 
 Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on Android), currently **@expo/ui 57.0.25 on Expo SDK 57**. Prop names change between releases, so check the installed types before upgrading.
 
+Web wrappers use **@base-ui/react 1.9.0** and **tailwind-variants 3.3.1**,
+with Tailwind CSS **4.3.3** through Expo's PostCSS support. These runtime
+packages are UI peers supplied by the app; import them only from web files.
+
 - `packages/ui/src/theme/tokens.ts` is the source of truth for colors, spacing, radii, and fonts. The package owns the shared ESLint no-hex rule; only its `src/theme/` is exempt.
 - Import `Text`, `ThemedHost`, and tokens from `@is-this-tasty/ui`, never app-local theme paths. Use `<Text variant="…">` for all text.
 - `pnpm --filter @is-this-tasty/ui check:contrast` checks text tokens against WCAG AA.
@@ -51,6 +55,14 @@ Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on 
 - One Host per screen region, not one per control.
 - Use `matchContents` for rows and inline controls; `style={{ flex: 1 }}` for full-screen Forms.
 - Don't nest Hosts.
+
+### Web styling
+
+- Web implementations use Base UI + `tv()` with token classes only. No arbitrary values such as `bg-[#…]`; shared ESLint rules reject arbitrary hex utilities.
+- `apps/mobile/global.css` imports Tailwind and the generated theme, and scans the app and UI package explicitly. The root layout imports it once; Expo ignores global stylesheets on native. No NativeWind, Uniwind, or custom Metro config.
+- Run `pnpm tokens` after editing `packages/ui/src/theme/tokens.ts`, then commit `src/theme/tokens.css` too. `pnpm check` checks freshness without rewriting files; CI also regenerates and rejects a diff.
+- Names become kebab-case: `color.tintInk` is `bg-tint-ink`, `space[5]` is `p-5` (22px), `radius.sheet` is `rounded-sheet`, and `font.display` is `font-display`. Category colors include `text-category-rose-text`. Tailwind's default color, spacing, radius, and font namespaces are replaced by our tokens.
+- `/dev/catalog` includes a web-only Base UI switch to prove pointer/keyboard interaction and token styling. Remove `packages/ui/src/examples/` and its registry import when STO-609 supplies the real Switch examples. Native uses the empty web-example registry and never imports the smoke component.
 
 ### Development catalog
 
@@ -65,7 +77,7 @@ components should import the normal `@is-this-tasty/ui` entry point.
 ### How to add a component
 
 1. Copy the reference layout in `packages/ui/src/text/` into `packages/ui/src/<name>/`: `index.tsx`, `examples/*.tsx`, and `docs.mdx`.
-2. Implement the native component. For native wrappers, add `index.web.tsx` using Base UI + Tailwind once the web layer lands (STO-625). Custom RN components such as Text share their implementation with web.
+2. Implement the native component. For native wrappers, add `index.web.tsx` using Base UI + `tv()` with token classes. Custom RN components such as Text share their implementation with web.
 3. Export the public component and props from `packages/ui/src/index.ts`. Consumers import only from `@is-this-tasty/ui`; keep internal helpers private.
 4. Add one named example per state and a `<Preview>` for each in `docs.mdx`, plus usage and do/don't guidance. Export `{ name, examples: [{ title, Component }] }` from the component's `examples/index.ts`, then add that group to `packages/ui/src/catalog.ts`. No app-side list changes are needed. The docs renderer supplies `Preview`.
 5. Run `pnpm check`, exercise the examples on iOS, Android, and web, and record screenshots plus accessibility checks or explicit device limitations.
