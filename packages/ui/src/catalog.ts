@@ -4,6 +4,7 @@ import { buttonExamples } from "./button/examples";
 import { actionMenuExamples } from "./action-menu/examples";
 import { pickerExamples } from "./picker/examples";
 import { genreTagExamples } from "./genre-tag/examples";
+import { drinkRowExamples } from "./drink-row/examples";
 import { fieldExamples } from "./field/examples";
 import { formExamples } from "./form/examples";
 import { starRatingExamples } from "./star-rating/examples";
@@ -24,6 +25,7 @@ export const catalog: readonly CatalogEntry[] = [
   formExamples,
   fieldExamples,
   genreTagExamples,
+  drinkRowExamples,
   pickerExamples,
   starRatingExamples,
 ];

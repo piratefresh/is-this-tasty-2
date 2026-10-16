@@ -1,0 +1,131 @@
+import { Image } from "expo-image";
+import type { ReactNode } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
+
+import { LongPressMenu, type ActionMenuItem } from "../action-menu";
+import { Text } from "../text";
+import { category, categoryFallback, color, radius, space } from "../theme/tokens";
+import type { Drink } from "./types";
+
+export type { Drink } from "./types";
+
+export type DrinkRowProps = {
+  drink: Drink;
+  /** "dex" means in your Dex; "verified" means the producer is verified. */
+  badge?: "dex" | "verified";
+  /** Replaces the compact rating. */
+  trailing?: ReactNode;
+  onPress?: () => void;
+  /** Long-press menu, usually the pour menu. Omit for no menu. */
+  menu?: ActionMenuItem[];
+  testID?: string;
+};
+
+const THUMB = 52;
+const BADGE = 18;
+const BADGE_RING = 2.5;
+const STRIPES = [0, 1, 2, 3, 4, 5, 6, 7];
+
+function hueFor(genre: string) {
+  return Object.hasOwn(category, genre) ? category[genre as keyof typeof category] : categoryFallback;
+}
+
+/** Tokens-only stand-in until photos exist. */
+function Placeholder() {
+  return (
+    <View aria-hidden style={styles.placeholder}>
+      {STRIPES.map((i) => (
+        <View key={i} style={[styles.stripe, { left: i * 14 - THUMB / 2 }]} />
+      ))}
+    </View>
+  );
+}
+
+function describe({ drink, badge }: Pick<DrinkRowProps, "drink" | "badge">, customTrailing: boolean) {
+  const parts = [drink.name, drink.producer];
+  if (!customTrailing) parts.push(`rated ${drink.rating.toFixed(1)}`);
+  if (badge) parts.push(badge === "dex" ? "in your Dex" : "verified");
+  return parts.join(", ");
+}
+
+export function DrinkRow({ drink, badge, trailing, onPress, menu, testID }: DrinkRowProps) {
+  const hue = hueFor(drink.genre);
+  const row = (
+    <Pressable
+      accessible
+      accessibilityRole={onPress ? "button" : undefined}
+      accessibilityLabel={describe({ drink, badge }, trailing !== undefined)}
+      onPress={onPress}
+      testID={testID}
+      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+    >
+      <View style={styles.thumbWrap}>
+        <View style={[styles.thumb, { borderColor: hue.dot }]}>
+          {drink.imageUrl ? (
+            <Image
+              source={drink.imageUrl}
+              transition={150}
+              cachePolicy="memory-disk"
+              contentFit="cover"
+              accessible={false}
+              style={StyleSheet.absoluteFill}
+            />
+          ) : (
+            <Placeholder />
+          )}
+        </View>
+        {badge ? (
+          <View aria-hidden style={styles.badge}>
+            <Text variant="meta" style={styles.check}>✓</Text>
+          </View>
+        ) : null}
+      </View>
+      <View style={styles.text}>
+        <Text variant="label" numberOfLines={1}>{drink.name}</Text>
+        <Text variant="meta" numberOfLines={1}>{drink.producer}</Text>
+      </View>
+      {trailing ?? <Text variant="label" color="star">★ {drink.rating.toFixed(1)}</Text>}
+    </Pressable>
+  );
+
+  return menu ? <LongPressMenu items={menu}>{row}</LongPressMenu> : row;
+}
+
+const styles = StyleSheet.create({
+  row: { flexDirection: "row", alignItems: "center", gap: 14, paddingVertical: space[2], minHeight: 44 },
+  pressed: { opacity: 0.6 },
+  thumbWrap: { width: THUMB, height: THUMB },
+  thumb: {
+    width: THUMB,
+    height: THUMB,
+    borderRadius: radius.sm,
+    borderCurve: "continuous",
+    borderWidth: 1,
+    overflow: "hidden",
+    backgroundColor: color.surfaceAlt,
+  },
+  placeholder: { ...StyleSheet.absoluteFill, overflow: "hidden" },
+  stripe: {
+    position: "absolute",
+    top: -THUMB,
+    width: 6,
+    height: THUMB * 3,
+    backgroundColor: color.separator,
+    transform: [{ rotate: "45deg" }],
+  },
+  badge: {
+    position: "absolute",
+    left: -BADGE_RING,
+    bottom: -BADGE_RING,
+    width: BADGE + BADGE_RING * 2,
+    height: BADGE + BADGE_RING * 2,
+    borderRadius: radius.pill,
+    borderWidth: BADGE_RING,
+    borderColor: color.bg,
+    backgroundColor: color.tint,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  check: { color: color.tintInk, fontSize: 10, lineHeight: 12, fontWeight: "800" },
+  text: { flex: 1, minWidth: 0 },
+});

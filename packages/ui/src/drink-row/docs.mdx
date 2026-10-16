@@ -1,0 +1,52 @@
+---
+title: DrinkRow
+description: List row for drinks in feeds, rotations, search results and the Dex list.
+---
+
+Custom React Native row: label thumb, name, producer and a compact rating.
+One implementation serves iOS, Android and web; no native Host is needed.
+
+```tsx
+<DrinkRow drink={drink} badge="dex" menu={pourMenu} onPress={openDrink} />
+```
+
+The row reads as one accessible element: "Pliny the Elder, Russian River Brewing, rated 4.6, in your Dex".
+With a custom `trailing`, the rating is dropped from the label; describe the trailing content yourself.
+
+## Do / don't
+
+- Do pass `menu` for the long-press pour menu (see ActionMenu).
+- Do let names truncate; both lines stay on one line.
+- Don't put chromatic color in `trailing`; gold is reserved for rating.
+
+## Default
+
+<Preview example="drink-row/default" />
+
+## Badge
+
+<Preview example="drink-row/badge" />
+
+## Custom trailing
+
+<Preview example="drink-row/trailing" />
+
+## Long names
+
+<Preview example="drink-row/long-name" />
+
+## Long-press menu
+
+<Preview example="drink-row/long-press" />
+
+## Swipe actions
+
+<Preview example="drink-row/swipe" />
+
+## 200 rows
+
+<Preview example="drink-row/long-list" />
+
+## Props
+
+<PropsTable path="drink-row/index.tsx" name="DrinkRowProps" />
