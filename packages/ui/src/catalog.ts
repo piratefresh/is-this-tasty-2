@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 
 import { buttonExamples } from "./button/examples";
+import { actionMenuExamples } from "./action-menu/examples";
 import { pickerExamples } from "./picker/examples";
 import { genreTagExamples } from "./genre-tag/examples";
 import { fieldExamples } from "./field/examples";
@@ -18,6 +19,7 @@ export type CatalogEntry = {
 export const catalog: readonly CatalogEntry[] = [
   textExamples,
   buttonExamples,
+  actionMenuExamples,
   switchExamples,
   formExamples,
   fieldExamples,
