@@ -10,6 +10,7 @@ import { formExamples } from "./form/examples";
 import { starRatingExamples } from "./star-rating/examples";
 import { switchExamples } from "./switch/examples";
 import { textExamples } from "./text/examples";
+import { themeExamples } from "./theme/examples";
 
 export type CatalogEntry = {
   id: string;
@@ -18,6 +19,7 @@ export type CatalogEntry = {
 };
 
 export const catalog: readonly CatalogEntry[] = [
+  themeExamples,
   textExamples,
   buttonExamples,
   actionMenuExamples,
