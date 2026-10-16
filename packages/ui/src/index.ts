@@ -1,5 +1,6 @@
 export { Button, type ButtonProps, type ButtonVariant } from "./button";
 export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
+export { StarRating, type StarRatingProps } from "./star-rating";
 export { Text, type TextProps } from "./text";
 export { ThemedHost } from "./theme/themed-host";
 export {

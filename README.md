@@ -24,7 +24,7 @@ Use `pnpm android:build` to select the Android emulator or device explicitly.
 The workspace uses pnpm's hoisted node linker to keep Windows native build paths short enough for the Android NDK tooling.
 
 ```sh
-pnpm check # lint + typecheck + contrast + token CSS freshness, same as CI
+pnpm check # lint + typecheck + UI behavior tests + contrast + token CSS freshness, same as CI
 ```
 
 To run app-specific commands:
@@ -90,6 +90,15 @@ use the accessible fallback hue. The catalog includes current hues, unknown,
 overflow, and narrow wrapping examples; usage lives in
 `packages/ui/src/genre-tag/docs.mdx`. Contrast checks cover every category label
 and the fallback on the chip fill.
+
+`StarRating` shares its React Native implementation across iOS, Android, and web.
+It supports clipped half stars, optional values/counts, and controlled input with
+selection haptics. Tap to rate, or hold for 200ms before scrubbing so normal row
+swipes remain available. Inputs expose screen-reader adjustment actions and web
+arrow/Home/End keys. The app supplies `GestureHandlerRootView` and the native
+runtime peers. See `packages/ui/src/star-rating/docs.mdx` and the catalog's six
+examples, including a swipeable list row. Run its behavior checks with
+`pnpm --filter @is-this-tasty/ui test`.
 
 ## Adding workspaces
 

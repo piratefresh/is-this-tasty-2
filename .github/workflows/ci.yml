@@ -18,6 +18,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm typecheck
+      - run: pnpm --filter @is-this-tasty/ui test
       - run: pnpm --filter @is-this-tasty/ui check:contrast
       - run: pnpm --filter @is-this-tasty/ui check:tokens
       - run: pnpm tokens
