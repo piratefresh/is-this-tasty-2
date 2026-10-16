@@ -42,3 +42,14 @@ export type FieldProps = {
 
 /** Discover search: `returnKeyType="search"`, no autocorrect, clear button. */
 export type SearchFieldProps = Omit<FieldProps, "secure">;
+
+/** Search defaults shared by both platforms; callers can still override each. */
+export function withSearchDefaults(props: SearchFieldProps): SearchFieldProps {
+  return {
+    autoComplete: "off",
+    autoCapitalize: "none",
+    autoCorrect: false,
+    returnKeyType: "search",
+    ...props,
+  };
+}

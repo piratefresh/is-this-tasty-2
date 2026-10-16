@@ -1,11 +1,11 @@
 import { TextInput, useNativeState, type TextInputProps, type TextInputRef } from "@expo/ui";
 import { AccessibilityInfo, Platform, Pressable, StyleSheet, View } from "react-native";
-import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
+import { useCallback, useEffect, useImperativeHandle, useRef, type Ref } from "react";
 
 import { ThemedHost } from "../theme/themed-host";
 import { color, radius, space } from "../theme/tokens";
 import { Text } from "../text";
-import type { FieldProps, FieldRef, SearchFieldProps } from "./types";
+import { withSearchDefaults, type FieldProps, type FieldRef, type SearchFieldProps } from "./types";
 
 export type { FieldAutoComplete, FieldProps, FieldRef, SearchFieldProps } from "./types";
 
@@ -30,16 +30,16 @@ const styles = StyleSheet.create({
     borderColor: "transparent",
     backgroundColor: color.surface,
     borderRadius: radius.md,
-    paddingHorizontal: 14,
+    paddingHorizontal: space[3],
   },
   host: { flex: 1, minWidth: 0 },
-  input: { backgroundColor: "transparent", paddingVertical: 13 },
+  input: { backgroundColor: "transparent", paddingVertical: space[3] },
   error: { marginTop: space[1] },
 });
 
-/** True when `error` transitioned to a non-empty value after mount. */
+/** Announces `error` whenever it changes to a new non-empty message, including at mount. */
 function useAnnounceError(error: string | undefined) {
-  const previous = useRef(error);
+  const previous = useRef<string | undefined>(undefined);
   useEffect(() => {
     if (error && previous.current !== error) AccessibilityInfo.announceForAccessibility(error);
     previous.current = error;
@@ -51,28 +51,10 @@ function useAnnounceError(error: string | undefined) {
  * `BasicTextField` on Android, hosted per field inside an RN chrome that owns
  * the surface fill, radius and error border.
  */
-export function Field({ ref, ...props }: FieldProps) {
-  return <FieldControl {...props} ref={ref} />;
-}
+export { FieldControl as Field };
 
 export function SearchField(props: SearchFieldProps) {
-  const {
-    autoComplete = "off",
-    autoCapitalize = "none",
-    autoCorrect = false,
-    returnKeyType = "search",
-    ...rest
-  } = props;
-  return (
-    <FieldControl
-      {...rest}
-      autoComplete={autoComplete}
-      autoCapitalize={autoCapitalize}
-      autoCorrect={autoCorrect}
-      returnKeyType={returnKeyType}
-      clearable
-    />
-  );
+  return <FieldControl {...withSearchDefaults(props)} clearable />;
 }
 
 type FieldControlProps = FieldProps & { clearable?: boolean };
@@ -96,11 +78,29 @@ function FieldControl({
   testID,
   clearable,
 }: FieldControlProps & { ref?: Ref<FieldRef> }) {
-  // Observable state shared with the native field. Typing updates it natively;
-  // re-sync here only when the parent drove a change the field didn't see
-  // (clear button, formatting, form reset).
+  // Observable state shared with the native field. Typing updates it natively.
+  // `emitted` holds texts sent to the parent that haven't echoed back yet, so a
+  // stale echo ("a" while native already has "ab") isn't written over newer
+  // input. A value we never emitted was driven by the parent (clear button,
+  // formatting, form reset) and is pushed to the native field.
   const state = useNativeState(value);
-  if (state.get() !== value) state.set(value);
+  const emitted = useRef<string[]>([]);
+  const handleChangeText = useCallback(
+    (text: string) => {
+      emitted.current.push(text);
+      onChangeText(text);
+    },
+    [onChangeText],
+  );
+  useEffect(() => {
+    const index = emitted.current.indexOf(value);
+    if (index >= 0) {
+      emitted.current.splice(0, index + 1);
+      return;
+    }
+    emitted.current = [];
+    if (state.get() !== value) state.set(value);
+  }, [value, state]);
 
   const inputRef = useRef<TextInputRef>(null);
   useImperativeHandle(
@@ -118,7 +118,7 @@ function FieldControl({
           <TextInput
             ref={inputRef}
             value={state}
-            onChangeText={onChangeText}
+            onChangeText={handleChangeText}
             placeholder={placeholder}
             placeholderTextColor={color.label3}
             secureTextEntry={secure}
@@ -140,7 +140,10 @@ function FieldControl({
         </ThemedHost>
         {clearable && value !== "" ? (
           <Pressable
-            onPress={() => onChangeText("")}
+            onPress={() => {
+              onChangeText("");
+              inputRef.current?.focus();
+            }}
             hitSlop={space[2]}
             accessibilityRole="button"
             accessibilityLabel="Clear"
@@ -152,7 +155,13 @@ function FieldControl({
         ) : null}
       </View>
       {error ? (
-        <Text variant="meta" color="destructive" style={styles.error}>
+        <Text
+          variant="meta"
+          color="destructive"
+          style={styles.error}
+          accessibilityRole="alert"
+          accessibilityLiveRegion="polite"
+        >
           {error}
         </Text>
       ) : null}
