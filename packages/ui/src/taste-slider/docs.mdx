@@ -1,0 +1,19 @@
+---
+title: TasteSlider
+description: Native taste profile controls with live and committed values.
+---
+
+Native SwiftUI and Jetpack Compose sliders with a web Base UI slider. Values
+range from `0` to `1`; the default step is `0.1` so assistive technology can
+adjust in 10% increments. `onChange` updates the live value and `onChangeEnd`
+fires when the interaction ends.
+
+<Preview example="taste-slider/profile" />
+
+The endpoint labels are visible and included in the slider's accessible name.
+Pass axes as data; the component does not hard-code product-specific taste
+categories.
+
+## Props
+
+<PropsTable path="taste-slider/types.ts" name="TasteSliderProps" />

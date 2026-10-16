@@ -19,6 +19,8 @@ export { Field, SearchField, type FieldAutoComplete, type FieldProps, type Field
 export { MenuPicker, SegmentedPicker, type PickerProps } from "./picker";
 export { ChoiceSheet, Sheet, type ChoiceSheetProps, type SheetProps, type SheetSnapPoint } from "./sheet";
 export { StarRating, type StarRatingProps } from "./star-rating";
+export { TasteSlider, type TasteSliderProps } from "./taste-slider";
+export { Stepper, type StepperProps } from "./stepper";
 export { Text, type TextProps } from "./text";
 export { ThemedHost } from "./theme/themed-host";
 export {
