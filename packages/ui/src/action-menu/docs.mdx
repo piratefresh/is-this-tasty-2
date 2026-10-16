@@ -1,0 +1,41 @@
+---
+title: ActionMenu
+description: Native menus for "···" and "+" triggers, and long-press on rows.
+---
+
+- `ActionMenu`: tap the trigger to open the menu.
+- `LongPressMenu`: wrap any view; long-press opens the same menu (with a row preview on iOS).
+
+Both take `items` (`title`, `icon`, `onPress`, `destructive`, nested `items`, `inline` for a divided section).
+Destructive items render red and ask for confirmation first.
+
+| | iOS | Android | Web |
+| --- | --- | --- | --- |
+| Tap | SwiftUI `Menu` | Compose `DropdownMenu` | Base UI `Menu` |
+| Long-press | SwiftUI `ContextMenu` | `DropdownMenu` on long-press | Base UI `ContextMenu` (right-click, long-press on touch) |
+
+```tsx
+<ActionMenu label="More actions" items={pourMenu}>
+  <Text variant="body">···</Text>
+</ActionMenu>
+```
+
+Both are built on `@expo/ui/community/menu`, one API for iOS and Android. Menus are not in the universal layer.
+
+## Do / don't
+
+- Do keep the trigger at least 44pt tall.
+- Do put destructive items last, in their own `inline` section.
+- Don't rely on `icon` alone: it is an SF Symbol and shows on iOS only.
+
+## Overflow and add
+
+<Preview example="action-menu/overflow" />
+
+## Long-press
+
+<Preview example="action-menu/long-press" />
+
+## Props
+
+<PropsTable path="action-menu/types.ts" name="ActionMenuProps" />
