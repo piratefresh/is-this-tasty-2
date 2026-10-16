@@ -28,6 +28,12 @@ This guide applies to the whole pnpm monorepo. Follow AGENTS.md, CONTEXT.md, the
 - Use react-native-reanimated-dnd for drag and drop, with a tap path for accessibility and tests. The word builder strip's documented pan implementation is the sole current exception; see apps/mobile/src/components/word-builder/AGENTS.md before changing it.
 - Give interactive controls accessible labels and states, and verify behavior on affected platforms.
 
+## Web styling
+
+- Prefer `cn()` from `tailwind-variants` when composing `className` values, including conditional classes, recipe output, and caller overrides: `className={cn(root(), className)}`. Avoid manual concatenation or template strings for class composition; a single static class string can stay literal.
+- Keep reusable variants and slots in `tv()` recipes. Use token classes only, not arbitrary hex utilities.
+- Import `cn`, `tv`, and Base UI only in web implementations so native bundles remain independent of the web styling runtime.
+
 ## State and effects
 
 - Keep one source of truth for each state value. Derive cheap values during render; use useMemo when computation is meaningfully expensive or stable identity is needed. Keep user action logic in its event handler.

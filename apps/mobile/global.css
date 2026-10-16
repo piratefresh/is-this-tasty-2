@@ -1,0 +1,12 @@
+@import "tailwindcss" source(none);
+@import "../../packages/ui/src/theme/tokens.css";
+
+@source "./src";
+@source "../../packages/ui/src";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    background-color: var(--color-bg);
+  }
+}
