@@ -6,7 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
-import { color, font } from '@/theme/tokens';
+import { color, font } from "@is-this-tasty/ui";
 
 SplashScreen.preventAutoHideAsync();
 

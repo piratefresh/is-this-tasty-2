@@ -3,9 +3,7 @@ import { Stack } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { Text } from '@/theme/text';
-import { ThemedHost } from '@/theme/themed-host';
-import { screenInset, space } from '@/theme/tokens';
+import { Text, ThemedHost, screenInset, space } from "@is-this-tasty/ui";
 
 // ponytail: foundations smoke screen (STO-604/607). Becomes /dev/catalog in STO-620.
 export default function FoundationsScreen() {

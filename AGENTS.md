@@ -51,6 +51,21 @@ Docs: https://docs.expo.dev/eas/index.md
 - Run app-specific CLI commands with `pnpm --filter @is-this-tasty/mobile exec <command>`.
 - Add apps under `apps/*` and shared packages under `packages/*`. Use `workspace:*` for local package dependencies.
 
+## Shared UI package
+
+- Foundations live in `packages/ui`, not `apps/mobile/src/theme`. App code imports components and tokens only from `@is-this-tasty/ui`.
+- `packages/ui/src/theme/tokens.ts` owns design values. The package owns the no-hex ESLint rule used by both workspaces; only its `src/theme/` is exempt.
+- Contrast runs as `pnpm --filter @is-this-tasty/ui check:contrast`, included in root `pnpm check` and CI.
+- Native runtime libraries used by UI (`@expo/ui`, `expo-font`, Reanimated, etc.) belong in its `peerDependencies` when used, and are installed in `apps/mobile` with `pnpm --filter @is-this-tasty/mobile exec expo install <package>`. The app owns font loading; do not duplicate native runtime dependencies in the UI package.
+
+### How to add a component
+
+1. Start at `packages/ui/src/<name>/`, copying `src/text/`: `index.tsx`, `examples/*.tsx`, and `docs.mdx`.
+2. Implement native behavior; native wrappers also get `index.web.tsx` (Base UI + Tailwind after STO-625). Custom React Native components such as Text use one implementation across platforms.
+3. Export the public component and props from `packages/ui/src/index.ts`; keep internals private.
+4. Add one named example per state and one `<Preview>` per example in `docs.mdx`, with usage and do/don't guidance. Catalog/docs tooling consumes those examples.
+5. Run `pnpm check` and exercise iOS, Android, and web; report screenshots and accessibility results, or explicit device limitations.
+
 ## Agent skills
 
 ### Issue tracker

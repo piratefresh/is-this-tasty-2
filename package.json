@@ -11,6 +11,6 @@
     "reset-project": "pnpm --filter @is-this-tasty/mobile reset-project",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
-    "check": "pnpm lint && pnpm typecheck && pnpm --filter @is-this-tasty/mobile check:contrast"
+    "check": "pnpm lint && pnpm typecheck && pnpm --filter @is-this-tasty/ui check:contrast"
   }
 }
