@@ -10,9 +10,29 @@ allowBuilds:
   unrs-resolver: false
 
 minimumReleaseAgeExclude:
-  - '@expo/cli@57.0.31'
-  - '@expo/router-server@57.0.13'
-  - '@expo/ui@57.0.25'
-  - babel-preset-expo@57.0.16
-  - expo-router@57.0.28
-  - expo@57.0.30
+  - '@expo/cli@57.0.31 || 58.1.9'
+  - '@expo/router-server@57.0.13 || 58.0.14'
+  - '@expo/ui@57.0.25 || 58.0.18'
+  - babel-preset-expo@57.0.16 || 58.0.15
+  - expo-router@57.0.28 || 58.0.20
+  - expo@57.0.30 || 58.0.11
+  - '@expo/metro-config@58.0.14'
+  - '@expo/package-manager@1.14.2'
+  - '@expo/prebuild-config@58.0.14'
+  - '@react-native/asset-utils@0.88.0'
+  - '@react-native/babel-plugin-codegen@0.88.0'
+  - '@react-native/codegen@0.88.0'
+  - '@react-native/debugger-frontend@0.88.0'
+  - '@react-native/debugger-shell@0.88.0'
+  - '@react-native/dev-middleware@0.88.0'
+  - '@react-native/js-polyfills@0.88.0'
+  - '@react-native/normalize-colors@0.88.0'
+  - expo-asset@58.0.16
+  - expo-modules-core@58.0.19
+  - expo-modules-jsi@58.0.14
+  - '@react-native/community-cli-plugin@0.88.0'
+  - '@react-native/gradle-plugin@0.88.0'
+  - '@react-native/virtualized-lists@0.88.0'
+  - expo-image@58.0.15
+  - expo-system-ui@58.0.6
+  - react-native@0.88.0
