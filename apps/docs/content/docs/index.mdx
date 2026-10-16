@@ -1,0 +1,47 @@
+---
+title: Foundations
+description: Native controls, dark surfaces, and a serif voice.
+---
+
+Is This Tasty? uses native SwiftUI and Jetpack Compose controls through
+`@expo/ui`. Custom React Native views carry the product's own language:
+ratings, genre tags, drink rows, and collectible cards.
+
+## One source of truth
+
+`packages/ui/src/theme/tokens.ts` owns colors, spacing, radii, and fonts.
+Import components and tokens from `@is-this-tasty/ui`. The app owns font
+loading and native runtime dependencies.
+
+Violet is the UI tint. Gold, teal, and pink carry rating, category, and rarity
+meaning. Spectral sets titles and drink names; interactive text uses the
+system font. Cinzel is reserved for collectible cards.
+
+## Components
+
+- [Text](/docs/components/text): seven typography variants and Dynamic Type.
+- [Button](/docs/components/button): primary, tinted, secondary, plain, destructive.
+- [GenreTag](/docs/components/genre-tag): categories, fallback, overflow, wrapping.
+- [StarRating](/docs/components/star-rating): display, half steps, controlled input.
+
+Pages load directly from each component's `docs.mdx`; previews run the same
+examples used by `/dev/catalog`. New component pages appear as tickets land.
+
+## Working locally
+
+Run `pnpm dev` for Expo previews on port 8081, then `pnpm docs` for this site
+on port 3000. Set `PREVIEW_ORIGIN` before starting or building the docs when
+Expo runs elsewhere. Do not use localhost for a docs site opened on another device.
+
+`pnpm previews:export` produces the static Expo web app, including every
+documented preview route. Serve `apps/mobile/dist` and set `PREVIEW_ORIGIN`
+to that server to browse without Metro.
+
+## Adding a component
+
+1. Add native and web implementations, named examples, and `docs.mdx` under `packages/ui/src/<name>/`.
+2. Give the example registry a component `id` and each example an `id` matching its filename. Add it to `src/catalog.ts`.
+3. Add `<Preview example="component/example" />` and `<PropsTable path="component/types.ts" name="ComponentProps" />` to the MDX page.
+4. Run `pnpm check` and `pnpm docs:build`. Review on iOS, Android, and web, recording explicit device limitations.
+
+Run `pnpm tokens` after changing tokens and commit the generated CSS.

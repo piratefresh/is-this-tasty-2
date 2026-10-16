@@ -1,0 +1,27 @@
+---
+title: Platform mapping
+description: Native first, with a separate accessible web layer.
+---
+
+| Role | iOS | Android | Web |
+| --- | --- | --- | --- |
+| Actions | SwiftUI Button | Compose Button | Base UI Button |
+| Settings | Form, Section | Column, ListItem | Form, Fieldset, Field |
+| Toggles | Switch | Switch | Base UI Switch |
+| Filters | Picker | Picker | ToggleGroup, Select |
+| Menus | ContextMenu | DropdownMenu | Menu, ContextMenu |
+| Sheets | BottomSheet | ModalBottomSheet | Dialog |
+| Text entry | TextField, SecureField | TextInput | Field, Input |
+| Date entry | DateTimePicker | DateTimePicker | Native date input |
+| Progress | CircularProgress, Gauge | CircularProgress | Progress, Meter |
+
+This table records the target architecture. Components not yet listed in the
+sidebar are still being implemented under STO-603.
+
+Native wrappers use `@expo/ui` with a platform file when the universal API
+cannot express the required behavior. Web wrappers use Base UI and `tv()`
+with token-generated Tailwind classes. Web libraries stay in web files.
+Custom React Native components share one implementation across platforms.
+
+Tailwind stays on web. Native views use StyleSheet and tokens. Every wrapper
+keeps the same public props across platforms.

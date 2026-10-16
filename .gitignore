@@ -35,6 +35,10 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+.next/
+.source/
+next-env.d.ts
+*.raw.mp4
 
 example
 

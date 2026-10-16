@@ -7,14 +7,15 @@ import { SubtitleExample } from "./subtitle";
 import { TitleExample } from "./title";
 
 export const textExamples = {
+  id: "text",
   name: "Text",
   examples: [
-    { title: "Display", Component: DisplayExample },
-    { title: "Title", Component: TitleExample },
-    { title: "Subtitle", Component: SubtitleExample },
-    { title: "Body", Component: BodyExample },
-    { title: "Label", Component: LabelExample },
-    { title: "Meta", Component: MetaExample },
-    { title: "Eyebrow", Component: EyebrowExample },
+    { id: "display", title: "Display", Component: DisplayExample },
+    { id: "title", title: "Title", Component: TitleExample },
+    { id: "subtitle", title: "Subtitle", Component: SubtitleExample },
+    { id: "body", title: "Body", Component: BodyExample },
+    { id: "label", title: "Label", Component: LabelExample },
+    { id: "meta", title: "Meta", Component: MetaExample },
+    { id: "eyebrow", title: "Eyebrow", Component: EyebrowExample },
   ],
 };

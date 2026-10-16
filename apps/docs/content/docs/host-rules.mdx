@@ -1,0 +1,21 @@
+---
+title: Host rules
+description: Keep native view regions themed and measurable.
+---
+
+The app currently uses Expo SDK 58 and `@expo/ui` 58.0.18. Check the installed
+types and matching Expo docs before changing native APIs.
+
+`ThemedHost` forces dark mode with the violet seed color. Native wrappers own
+their Host when used as standalone controls. Do not wrap those controls in a
+second Host.
+
+- Use one Host per native screen region. Compose several native views inside it.
+- Use `matchContents` for inline controls, or `matchContents={{ vertical: true }}` for a full-width row.
+- Use `style={{ flex: 1 }}` for a full-screen Form.
+- Do not nest Hosts. React Native components such as Text, GenreTag, and StarRating do not need one.
+
+Keep app, navigation, and splash backgrounds on `color.bg`. The app config
+forces dark mode and the status bar uses light content. Device review must
+check cold starts and screen pushes for white flashes, including when the
+device uses light mode.

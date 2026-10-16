@@ -1,0 +1,34 @@
+@import "tailwindcss";
+@import "../../../../packages/ui/src/theme/tokens.css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+@theme {
+  /* Fumadocs uses Tailwind's numeric spacing scale beyond the app's 0–7 grid. */
+  --spacing: var(--spacing-1);
+  --font-sans: system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+}
+
+.dark, .dark #nd-sidebar {
+  --color-fd-background: var(--color-bg);
+  --color-fd-foreground: var(--color-label);
+  --color-fd-muted: var(--color-surface-alt);
+  --color-fd-muted-foreground: var(--color-label2);
+  --color-fd-primary: var(--color-tint-text);
+  --color-fd-primary-foreground: var(--color-tint-ink);
+  --color-fd-border: var(--color-separator);
+  --color-fd-card: var(--color-surface);
+  --color-fd-card-foreground: var(--color-label);
+  --color-fd-popover: var(--color-sheet);
+  --color-fd-popover-foreground: var(--color-label);
+  --color-fd-accent: var(--color-tint-wash);
+  --color-fd-accent-foreground: var(--color-tint-text);
+  --color-fd-secondary: var(--color-surface-alt);
+  --color-fd-secondary-foreground: var(--color-label);
+  --color-fd-ring: var(--color-tint-text);
+}
+
+body { font-family: system-ui, sans-serif; }
+h1, h2 { font-family: var(--font-brand), serif; }
+iframe { color-scheme: dark; }
