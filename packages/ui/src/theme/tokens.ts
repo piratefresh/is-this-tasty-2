@@ -57,7 +57,7 @@ export const category = {
   Bourbon: { dot: '#5cc0c0', text: '#8fe0e0' },
 } as const satisfies Record<string, { dot: string; text: string }>;
 
-export const categoryFallback = { dot: color.label3, text: color.label3 } as const;
+export const categoryFallback = { dot: color.label3, text: color.label2 } as const;
 
 export type ColorToken = keyof typeof color;
 export type RadiusToken = keyof typeof radius;

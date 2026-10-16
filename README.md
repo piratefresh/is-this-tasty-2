@@ -84,6 +84,13 @@ components should import the normal `@is-this-tasty/ui` entry point.
 
 `Text` has seven examples, one per typography variant. Its React Native implementation already supports web, so it needs no duplicate `index.web.tsx`.
 
+`GenreTag` and `GenreTagList` provide display-only category chips. Lists show the
+first three genres plus `+N` overflow and wrap with an 8pt gap. Unknown genres
+use the accessible fallback hue. The catalog includes current hues, unknown,
+overflow, and narrow wrapping examples; usage lives in
+`packages/ui/src/genre-tag/docs.mdx`. Contrast checks cover every category label
+and the fallback on the chip fill.
+
 ## Adding workspaces
 
 Place additional apps under `apps/` and shared packages under `packages/`, each with its own `package.json`. Reference local packages with `workspace:*`, then run `pnpm install` at the repository root.
