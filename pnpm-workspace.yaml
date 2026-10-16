@@ -2,6 +2,10 @@ packages:
   - 'apps/*'
   - 'packages/*'
 
+# Windows: the isolated .pnpm store paths push native build files past 260 chars,
+# which the NDK's ninja 1.10 can't stat ("build.ninja still dirty after 100 tries").
+nodeLinker: hoisted
+
 allowBuilds:
   unrs-resolver: false
 

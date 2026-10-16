@@ -17,7 +17,11 @@ pnpm install
 pnpm dev
 ```
 
-Open Android, iOS, or web with `pnpm android`, `pnpm ios`, or `pnpm web`.
+Build and run Android or iOS with `pnpm android` or `pnpm ios`. These commands compile the native app and start Metro; they require the corresponding local native toolchain. Use `pnpm web` for web.
+
+Use `pnpm android:build` to select the Android emulator or device explicitly.
+
+The workspace uses pnpm's hoisted node linker to keep Windows native build paths short enough for the Android NDK tooling.
 
 ```sh
 pnpm check # lint + typecheck + contrast, same as CI
