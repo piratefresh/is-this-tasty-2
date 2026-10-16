@@ -1,0 +1,50 @@
+import { PrimaryButtonExample } from "./examples/primary";
+import { TintedButtonExample } from "./examples/tinted";
+import { SecondaryButtonExample } from "./examples/secondary";
+import { PlainButtonExample } from "./examples/plain";
+import { DestructiveButtonExample } from "./examples/destructive";
+
+# Button
+
+Native button: SwiftUI on iOS, Compose on Android, Base UI on web. 46pt tall,
+pill shape, 17pt semibold label. The OS draws the pressed state.
+
+```tsx
+import { Button } from "@is-this-tasty/ui";
+
+<Button variant="tinted" label="Log a pour" onPress={log} />;
+```
+
+`loading` disables the button and appends an ellipsis. `systemImage` (SF Symbol)
+is iOS only.
+
+## Primary
+
+Neutral pill. The main action on a screen: use at most one.
+
+<Preview><PrimaryButtonExample /></Preview>
+
+## Tinted
+
+Solid violet. In-context actions, e.g. "Log a pour".
+
+<Preview><TintedButtonExample /></Preview>
+
+## Secondary
+
+Tint wash. Supporting actions, e.g. "Add to rotation".
+
+<Preview><SecondaryButtonExample /></Preview>
+
+## Plain
+
+Text-only tint, e.g. "Skip".
+
+<Preview><PlainButtonExample /></Preview>
+
+## Destructive
+
+System destructive role, announced by VoiceOver/TalkBack, e.g. "Leave club".
+Don't use it for reversible actions.
+
+<Preview><DestructiveButtonExample /></Preview>

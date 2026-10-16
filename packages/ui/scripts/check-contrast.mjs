@@ -31,3 +31,9 @@ for (const [genre, hue] of [...Object.entries(category), ['fallback', categoryFa
   assert.ok(ratio >= 4.5, `${genre} on separator is ${ratio.toFixed(2)}:1`);
   console.log(`${genre} on separator: ${ratio.toFixed(2)}:1`);
 }
+
+for (const [fg, bg] of [['bg', 'primaryFill'], ['tintInk', 'tint'], ['tintText', 'tintWash'], ['destructive', 'bg']]) {
+  const ratio = contrast(color[fg], color[bg]);
+  assert.ok(ratio >= 4.5, `${fg} on ${bg} is ${ratio.toFixed(2)}:1`);
+  console.log(`${fg} on ${bg}: ${ratio.toFixed(2)}:1`);
+}
