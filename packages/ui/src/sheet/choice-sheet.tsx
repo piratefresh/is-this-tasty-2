@@ -15,7 +15,8 @@ export function ChoiceSheet({ options, selectedIndex, onSelect, onClose, ...shee
           <Pressable
             key={option}
             accessibilityRole="radio"
-            accessibilityState={{ selected }}
+            accessibilityState={{ checked: selected }}
+            aria-checked={selected}
             onPress={() => {
               onSelect(index);
               onClose();

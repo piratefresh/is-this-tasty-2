@@ -17,7 +17,7 @@ export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } fr
 export { DrinkRow, type Drink, type DrinkRowProps } from "./drink-row";
 export { Field, SearchField, type FieldAutoComplete, type FieldProps, type FieldRef, type SearchFieldProps } from "./field";
 export { MenuPicker, SegmentedPicker, type PickerProps } from "./picker";
-export { ChoiceSheet, Sheet, type ChoiceSheetProps, type SheetDetent, type SheetProps } from "./sheet";
+export { ChoiceSheet, Sheet, type ChoiceSheetProps, type SheetProps, type SheetSnapPoint } from "./sheet";
 export { StarRating, type StarRatingProps } from "./star-rating";
 export { Text, type TextProps } from "./text";
 export { ThemedHost } from "./theme/themed-host";

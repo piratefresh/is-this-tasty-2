@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type SheetDetent = "medium" | "large";
+export type SheetSnapPoint = "medium" | "large";
 
 export type SheetProps = {
   isOpen: boolean;
@@ -8,7 +8,7 @@ export type SheetProps = {
   onClose: () => void;
   title: string;
   /** Heights the sheet can rest at. Omit to size to the content. */
-  detents?: SheetDetent[];
+  snapPoints?: SheetSnapPoint[];
   children: ReactNode;
 };
 

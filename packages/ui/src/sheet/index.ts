@@ -1,3 +1,3 @@
 export { ChoiceSheet } from "./choice-sheet";
 export { Sheet } from "./sheet";
-export type { ChoiceSheetProps, SheetDetent, SheetProps } from "./types";
+export type { ChoiceSheetProps, SheetProps, SheetSnapPoint } from "./types";

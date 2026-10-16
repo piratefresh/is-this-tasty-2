@@ -14,7 +14,7 @@ export function SheetWithFieldExample() {
     <View style={{ gap: space[3] }}>
       <Button label="Add a tasting note" onPress={() => setOpen(true)} />
       <Text variant="meta">Note: {note || "none"}</Text>
-      <Sheet isOpen={open} onClose={() => setOpen(false)} title="Tasting note" detents={["medium", "large"]}>
+      <Sheet isOpen={open} onClose={() => setOpen(false)} title="Tasting note" snapPoints={["medium", "large"]}>
         <Field placeholder="Smoky, honeyed, long finish" value={note} onChangeText={setNote} onSubmit={() => setOpen(false)} />
       </Sheet>
     </View>
