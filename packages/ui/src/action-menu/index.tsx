@@ -43,6 +43,7 @@ export function ActionMenu(props: ActionMenuProps) {
   return <Menu {...props} longPress={false} />;
 }
 
+// ponytail: system menu only. A blurred backdrop and scaled row preview (like reacticx's context-menu: expo-blur + Reanimated) would be a custom JS menu; add if the native look feels too plain.
 /** Wrap any row: long-press opens the same menu (with a row preview on iOS). */
 export function LongPressMenu(props: ActionMenuProps) {
   return <Menu {...props} longPress />;
