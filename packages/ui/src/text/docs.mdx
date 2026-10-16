@@ -1,0 +1,79 @@
+import { DisplayExample } from "./examples/display";
+import { TitleExample } from "./examples/title";
+import { SubtitleExample } from "./examples/subtitle";
+import { BodyExample } from "./examples/body";
+import { LabelExample } from "./examples/label";
+import { MetaExample } from "./examples/meta";
+import { EyebrowExample } from "./examples/eyebrow";
+
+# Text
+
+Shared React Native typography for native and web. Import from the package root;
+`body` is the default variant, and React Native Text props are forwarded.
+
+```tsx
+import { Text } from "@is-this-tasty/ui";
+
+<Text variant="title">Pliny the Elder</Text>;
+<Text color="label2">Russian River Brewing</Text>;
+```
+
+## Variants
+
+### Display
+
+<Preview><DisplayExample /></Preview>
+
+### Title
+
+<Preview><TitleExample /></Preview>
+
+### Subtitle
+
+<Preview><SubtitleExample /></Preview>
+
+### Body
+
+<Preview><BodyExample /></Preview>
+
+### Label
+
+<Preview><LabelExample /></Preview>
+
+### Meta
+
+<Preview><MetaExample /></Preview>
+
+### Eyebrow
+
+<Preview><EyebrowExample /></Preview>
+
+## Do / don't
+
+- **Do** choose variants by purpose: display/title for headings, subtitle for
+  supporting names, body for reading, label for controls, meta for secondary
+  details, and eyebrow for section labels.
+- **Do** use named color tokens through `color`, such as `label2` or `tintText`.
+  Use exported `color` tokens when a React Native style needs a color value.
+- **Don't** hardcode hex colors or recreate typography with ad hoc font sizes.
+- **Don't** use the icon-only `label4` token for readable text, or use color alone
+  to communicate meaning.
+
+## Fonts and accessibility
+
+The app must load `Spectral_600SemiBold` and `Spectral_400Regular` before showing
+serif typography. Display/title use the semibold face; subtitle uses regular.
+The UI package does not load fonts or manage the app's loading screen.
+
+Display and title default to the `header` accessibility role. Use them for real
+headings rather than merely making text larger; other variants do not assign a
+heading role by default.
+
+Text respects system Dynamic Type/font scaling. The serif variants (display,
+title, subtitle) cap their font-size multiplier at **1.4**; system-font variants
+leave that cap unset. Keep scaling enabled, allow wrapping, and leave room for
+larger text instead of relying on fixed-height text containers. Check layouts
+with large accessibility text sizes and screen readers.
+
+The docs-site renderer supplies `Preview`; these examples need no separate web
+Text adapter.

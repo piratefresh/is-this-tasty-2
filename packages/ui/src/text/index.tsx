@@ -1,6 +1,6 @@
 import { Text as RNText, type TextProps as RNTextProps, type TextStyle } from 'react-native';
 
-import { color, font, type ColorToken } from './tokens';
+import { color, font, type ColorToken } from "../theme/tokens";
 
 type Variant = 'display' | 'title' | 'subtitle' | 'body' | 'label' | 'meta' | 'eyebrow';
 

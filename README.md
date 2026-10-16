@@ -5,7 +5,7 @@ A pnpm monorepo containing the Expo / React Native app.
 ## Structure
 
 - `apps/mobile`: Expo app, including routes in `src/app`, assets, and app configuration.
-- `packages/*`: Workspace location for shared packages when needed.
+- `packages/ui`: Shared design tokens, typography, themed native host, and component examples/docs.
 - `pnpm-workspace.yaml` and `pnpm-lock.yaml`: Workspace configuration and shared dependency lockfile.
 
 ## Development
@@ -36,15 +36,27 @@ pnpm --filter @is-this-tasty/mobile exec expo start --clear
 
 Native first: controls come from `@expo/ui` (SwiftUI on iOS, Jetpack Compose on Android), currently **@expo/ui 57.0.25 on Expo SDK 57**. Prop names change between releases, so check the installed types before upgrading.
 
-- `src/theme/tokens.ts` is the only place hex values live. ESLint fails on hex literals elsewhere in `src/`.
-- `<Text variant="…">` from `src/theme/text.tsx` for all text. Never set font family or size by hand.
-- `pnpm --filter @is-this-tasty/mobile check:contrast` checks text tokens against WCAG AA.
+- `packages/ui/src/theme/tokens.ts` is the source of truth for colors, spacing, radii, and fonts. The package owns the shared ESLint no-hex rule; only its `src/theme/` is exempt.
+- Import `Text`, `ThemedHost`, and tokens from `@is-this-tasty/ui`, never app-local theme paths. Use `<Text variant="…">` for all text.
+- `pnpm --filter @is-this-tasty/ui check:contrast` checks text tokens against WCAG AA.
+- The app owns font loading and native dependencies. The UI package declares the native libraries it uses as peers; install them in the app with `pnpm --filter @is-this-tasty/mobile exec expo install <package>`. Do not add native runtime dependencies to the UI package.
+- Expo SDK 57 resolves workspace source through its automatic Metro monorepo support; no custom Metro config is needed.
 
-**Host rules.** Wrap native views in `ThemedHost` (`src/theme/themed-host.tsx`). It forces dark mode and the violet tint.
+**Host rules.** Wrap native views in `ThemedHost` from `@is-this-tasty/ui`. It forces dark mode and the violet tint.
 
 - One Host per screen region, not one per control.
 - Use `matchContents` for rows and inline controls; `style={{ flex: 1 }}` for full-screen Forms.
 - Don't nest Hosts.
+
+### How to add a component
+
+1. Copy the reference layout in `packages/ui/src/text/` into `packages/ui/src/<name>/`: `index.tsx`, `examples/*.tsx`, and `docs.mdx`.
+2. Implement the native component. For native wrappers, add `index.web.tsx` using Base UI + Tailwind once the web layer lands (STO-625). Custom RN components such as Text share their implementation with web.
+3. Export the public component and props from `packages/ui/src/index.ts`. Consumers import only from `@is-this-tasty/ui`; keep internal helpers private.
+4. Add one named example per state and a `<Preview>` for each in `docs.mdx`, plus usage and do/don't guidance. The catalog (STO-626) and docs site (STO-621) consume these examples; the docs renderer supplies `Preview`.
+5. Run `pnpm check`, exercise the examples on iOS, Android, and web, and record screenshots plus accessibility checks or explicit device limitations.
+
+`Text` has seven examples, one per typography variant. Its React Native implementation already supports web, so it needs no duplicate `index.web.tsx`.
 
 ## Adding workspaces
 
