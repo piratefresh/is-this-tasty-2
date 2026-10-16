@@ -15,6 +15,8 @@ export type DrinkRowProps = {
   badge?: "dex" | "verified";
   /** Replaces the compact rating. */
   trailing?: ReactNode;
+  /** Spoken in place of the rating when `trailing` is set, e.g. "added today". */
+  trailingLabel?: string;
   onPress?: () => void;
   /** Long-press menu, usually the pour menu (right-click on web, long-press on touch). Omit for no menu. */
   menu?: ActionMenuItem[];
@@ -41,19 +43,20 @@ function Placeholder() {
   );
 }
 
-function describe({ drink, badge }: Pick<DrinkRowProps, "drink" | "badge">, customTrailing: boolean) {
+function describe({ drink, badge, trailing, trailingLabel }: Pick<DrinkRowProps, "drink" | "badge" | "trailing" | "trailingLabel">) {
   const parts = [drink.name, drink.producer];
-  if (!customTrailing) parts.push(`rated ${drink.rating.toFixed(1)}`);
+  if (trailing === undefined) parts.push(`rated ${drink.rating.toFixed(1)}`);
+  else if (trailingLabel) parts.push(trailingLabel);
   if (badge) parts.push(badge === "dex" ? "in your Dex" : "verified");
   return parts.join(", ");
 }
 
-export function DrinkRow({ drink, badge, trailing, onPress, menu, testID }: DrinkRowProps) {
+export function DrinkRow({ drink, badge, trailing, trailingLabel, onPress, menu, testID }: DrinkRowProps) {
   const hue = hueFor(drink.genre);
   const a11y = {
     accessible: true,
     accessibilityRole: onPress ? ("button" as const) : undefined,
-    accessibilityLabel: describe({ drink, badge }, trailing !== undefined),
+    accessibilityLabel: describe({ drink, badge, trailing, trailingLabel }),
     testID,
   };
   const content = (
