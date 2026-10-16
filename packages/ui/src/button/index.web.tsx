@@ -6,7 +6,7 @@ import { buttonLabel, type ButtonProps } from "./types";
 export type { ButtonProps, ButtonVariant } from "./types";
 
 const button = tv({
-  base: "inline-flex h-11.5 w-full cursor-pointer items-center justify-center rounded-pill px-5 text-[17px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tint-text data-disabled:cursor-not-allowed data-disabled:opacity-40",
+  base: "inline-flex self-start h-11.5 cursor-pointer items-center justify-center rounded-pill px-5 text-[17px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tint-text data-disabled:cursor-not-allowed data-disabled:opacity-40",
   variants: {
     variant: {
       primary: "bg-primary-fill text-bg",
