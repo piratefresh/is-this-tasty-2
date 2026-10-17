@@ -10,7 +10,7 @@ One implementation serves iOS, Android and web; no native Host is needed.
 <DexCard name="Pliny the Elder" number={42} collected onPress={openDrink} />
 ```
 
-The frame is a 3pt gold gradient (`gold` → `goldDark` → `gold`) drawn with RN 0.88's
+The frame is a 3–4pt gradient whose colors come from the tier (`common` silver, `uncommon` teal, `rare` gold, `legendary` violet–pink) drawn with RN 0.88's
 `backgroundImage: linear-gradient(...)` — no `expo-linear-gradient` dependency. Frame stops
 live in the `rarity` map in `tokens.ts`, so tiers are data.
 
@@ -19,7 +19,7 @@ flip/scale-in on the UI thread plus a success haptic. Reduce Motion gets a cross
 
 ## Border beam
 
-Rarer tiers (`rare` today, `beam: true` in the `rarity` map) carry a light beam sweeping
+Rarer tiers (`rare` and `legendary`, `beam: true` in the `rarity` map, optional `beamColors`) carry a light beam sweeping
 the frame. It is reacticx's border beam (MIT) vendored into `border-beam.tsx`: a Skia
 runtime shader driven by the shared clock, so it animates on the UI thread with no
 per-frame React work. The beam renders only for collected cards, pauses under Reduce
@@ -63,6 +63,6 @@ Motion, and is native-only for now — web shows the static gradient frame until
 
 ## Enhancements
 
-- **Rarity tiers.** `common` and `rare` exist. `legendary` and the final per-tier frame finishes wait on product input.
+- **Rarity tiers.** `common`, `uncommon`, `rare` and `legendary` are placeholders; final tiers and per-tier finishes wait on product input.
 - **Web beam.** Enable on web by hosting CanvasKit and calling `LoadSkiaWeb` (see `@shopify/react-native-skia` web docs), then drop the `Platform.OS !== "web"` gate in `DexCard`.
 - **Label art.** Swap `LabelArt` for `expo-image` photos with a `dexPlate` background once photography exists.

@@ -9,6 +9,7 @@ export function RareDexCardExample() {
   return (
     <View style={{ flexDirection: "row", gap: space[3], alignItems: "flex-end" }}>
       <DexCard {...pliny} rarity="rare" collected onPress={() => {}} />
+      <DexCard {...pliny} rarity="rare" collected width={160} onPress={() => {}} />
       <DexCard {...pliny} rarity="rare" onPress={() => {}} />
     </View>
   );

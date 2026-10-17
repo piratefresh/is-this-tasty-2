@@ -13,11 +13,13 @@ const NAMES = [
   "La Fin du Monde",
 ];
 
-/** 150 cards for the grid scroll check. Every 7th is locked; every 11th is rare and carries the beam. */
+const TIERS = ["common", "common", "uncommon", "common", "rare", "uncommon", "common", "legendary", "rare"] as const;
+
+/** 150 cards for the grid scroll check. Every 7th is locked; tiers cycle, so rare and legendary carry the beam. */
 export const grid = Array.from({ length: 150 }, (_, i) => ({
   id: String(i),
   name: NAMES[i % NAMES.length],
   number: i + 1,
   collected: i % 7 !== 3,
-  rarity: i % 11 === 5 ? ("rare" as const) : ("common" as const),
+  rarity: TIERS[i % TIERS.length],
 }));

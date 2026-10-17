@@ -68,11 +68,13 @@ export type Genre = keyof typeof category;
 
 export const categoryFallback = { dot: color.label3, text: color.label2 } as const;
 
-/** Dex rarity tiers. Frame gradient stops (gold → dark gold → gold), muted stops for locked cards, and frame width scale with rarity. Rarer tiers carry a border beam. Final tiers and finishes still wait on product input (STO-619). */
+/** Dex rarity tiers. Frame gradient stops (light → dark → light), muted stops for locked cards, and frame width scale with rarity. Rarer tiers carry a border beam. Final tiers and finishes still wait on product input (STO-619). */
 export type RarityTier = {
   width: number;
   /** Collected cards of this tier get a light beam traveling the frame (see DexCard's BorderBeam). */
   beam?: boolean;
+  /** Beam gradient stops; defaults to the gold sweep. */
+  beamColors?: readonly string[];
   frame: readonly [string, string, string];
   frameMuted: readonly [string, string, string];
 };
@@ -80,13 +82,25 @@ export type RarityTier = {
 export const rarity = {
   common: {
     width: 3,
-    frame: [color.gold, color.goldDark, color.gold],
+    frame: ['#c3c7d1', '#6f7480', '#c3c7d1'],
+    frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
+  },
+  uncommon: {
+    width: 3,
+    frame: [color.teal, '#2f6f72', color.teal],
     frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
   },
   rare: {
     width: 3,
     beam: true,
     frame: [color.gold, color.goldDark, color.gold],
+    frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
+  },
+  legendary: {
+    width: 4,
+    beam: true,
+    beamColors: [color.pink, color.tintText, color.teal],
+    frame: [color.pink, '#6a46c4', color.tint],
     frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
   },
 } as const satisfies Record<string, RarityTier>;

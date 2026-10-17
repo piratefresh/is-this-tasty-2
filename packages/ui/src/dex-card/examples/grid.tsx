@@ -4,7 +4,7 @@ import { space } from "../../theme/tokens";
 import { DexCard } from "..";
 import { grid } from "./data";
 
-/** Scroll check for a 3-column grid of 150 plates, ~13 of them beaming. Needs a real mid-range Android device to judge 60fps. */
+/** Scroll check for a 3-column grid of 150 plates, about a third of them beaming. Needs a real mid-range Android device to judge 60fps. */
 export function GridDexCardExample() {
   return (
     // The catalog screen is a vertical ScrollView, and a vertical list inside one logs a nesting error.

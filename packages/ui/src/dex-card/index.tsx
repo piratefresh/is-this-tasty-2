@@ -14,7 +14,6 @@ import type { DexCardProps } from "./types";
 const RATIO = 148 / 104;
 const REVEAL_MS = 600;
 const OUTER_RADIUS = 12;
-const PLATE_RADIUS = 9; // outer radius minus the 3pt frame
 
 export function DexCard({
   name,
@@ -71,7 +70,13 @@ export function DexCard({
   // The beam rides the frame, so it sits inside the flipping view and turns with the reveal.
   const beam =
     collected && tierStyle.beam && !reduceMotion && Platform.OS !== "web" ? (
-      <BorderBeam width={width} height={height} frameWidth={tierStyle.width} outerRadius={OUTER_RADIUS} />
+      <BorderBeam
+        width={width}
+        height={height}
+        frameWidth={tierStyle.width}
+        outerRadius={OUTER_RADIUS}
+        colors={tierStyle.beamColors}
+      />
     ) : null;
 
   const card = (
@@ -87,7 +92,7 @@ export function DexCard({
         },
       ]}
     >
-      <View style={styles.plate}>
+      <View style={[styles.plate, { borderRadius: OUTER_RADIUS - tierStyle.width }]}>
         <Text variant="meta" allowFontScaling={false} style={styles.number}>{dexNumber(number)}</Text>
         <View style={styles.art}>
           {/* Locked reads as a silhouette: dimmer stripes on the dark plate. */}
@@ -117,7 +122,6 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.6 },
   plate: {
     flex: 1,
-    borderRadius: PLATE_RADIUS,
     backgroundColor: color.dexPlate,
     padding: 8,
   },
