@@ -10,6 +10,8 @@ import { formExamples } from "./form/examples";
 import { sheetExamples } from "./sheet/examples";
 import { starRatingExamples } from "./star-rating/examples";
 import { switchExamples } from "./switch/examples";
+import { tasteSliderExamples } from "./taste-slider/examples";
+import { stepperExamples } from "./stepper/examples";
 import { textExamples } from "./text/examples";
 import { themeExamples } from "./theme/examples";
 
@@ -32,4 +34,6 @@ export const catalog: readonly CatalogEntry[] = [
   pickerExamples,
   starRatingExamples,
   sheetExamples,
+  tasteSliderExamples,
+  stepperExamples,
 ];

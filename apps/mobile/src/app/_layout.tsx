@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { color, font } from "@is-this-tasty/ui";
 
@@ -37,19 +38,21 @@ export default function RootLayout() {
   if (!loaded && !error) return null;
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.bg }}>
-      <ThemeProvider value={navTheme}>
-        <StatusBar style="light" />
-        <Stack
-          screenOptions={{
-            headerTransparent: false,
-            contentStyle: { backgroundColor: color.bg },
-            headerTitleStyle: { fontFamily: font.display },
-          }}
-        >
-          <Stack.Screen name="preview/[component]/[example]" options={{ headerShown: false }} />
-        </Stack>
-      </ThemeProvider>
-    </GestureHandlerRootView>
+    <KeyboardProvider>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: color.bg }}>
+        <ThemeProvider value={navTheme}>
+          <StatusBar style="light" />
+          <Stack
+            screenOptions={{
+              headerTransparent: false,
+              contentStyle: { backgroundColor: color.bg },
+              headerTitleStyle: { fontFamily: font.display },
+            }}
+          >
+            <Stack.Screen name="preview/[component]/[example]" options={{ headerShown: false }} />
+          </Stack>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    </KeyboardProvider>
   );
 }

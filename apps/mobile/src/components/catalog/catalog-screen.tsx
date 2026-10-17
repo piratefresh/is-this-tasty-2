@@ -1,12 +1,15 @@
 import { color, screenInset, space, Text } from "@is-this-tasty/ui";
 import { catalog } from "@is-this-tasty/ui/catalog";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { KeyboardScrollView } from "../keyboard-scroll-view";
 import { TokenPreviews } from "./token-previews";
 
 export function CatalogScreen() {
   return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.content}>
+    <KeyboardScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      contentContainerStyle={styles.content}>
       <View style={styles.column}>
         <View style={styles.intro}>
           <Text variant="display">Is This Tasty?</Text>
@@ -25,7 +28,7 @@ export function CatalogScreen() {
           </View>
         ))}
       </View>
-    </ScrollView>
+    </KeyboardScrollView>
   );
 }
 

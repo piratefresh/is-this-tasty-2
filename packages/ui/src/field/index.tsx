@@ -4,6 +4,7 @@ import { useCallback, useEffect, useImperativeHandle, useRef, type Ref } from "r
 
 import { ThemedHost } from "../theme/themed-host";
 import { color, radius, space } from "../theme/tokens";
+import { useKeyboardReveal } from "../keyboard-reveal";
 import { Text } from "../text";
 import { withSearchDefaults, type FieldProps, type FieldRef, type SearchFieldProps } from "./types";
 
@@ -103,6 +104,7 @@ function FieldControl({
   }, [value, state]);
 
   const inputRef = useRef<TextInputRef>(null);
+  const { ref: revealRef, onFocus: revealOnFocus } = useKeyboardReveal();
   useImperativeHandle(
     ref,
     () => ({ focus: () => inputRef.current?.focus(), blur: () => inputRef.current?.blur(), clear: () => onChangeText("") }),
@@ -112,13 +114,14 @@ function FieldControl({
   useAnnounceError(error);
 
   return (
-    <View>
+    <View ref={revealRef}>
       <View style={[styles.chrome, error && { borderColor: color.destructive }]}>
         <ThemedHost matchContents={{ vertical: true }} style={styles.host}>
           <TextInput
             ref={inputRef}
             value={state}
             onChangeText={handleChangeText}
+            onFocus={revealOnFocus}
             placeholder={placeholder}
             placeholderTextColor={color.label3}
             secureTextEntry={secure}

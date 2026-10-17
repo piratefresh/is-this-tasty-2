@@ -1,0 +1,19 @@
+---
+title: Stepper
+description: Native count steppers with direct number entry.
+---
+
+Use `Stepper` for small bounded counts such as the number of pours. The value
+is controlled by the caller; `min` defaults to `0` and `step` defaults to `1`.
+Edit the number directly or use the step buttons. Values clamp to the configured
+minimum and maximum when editing ends.
+
+<Preview example="stepper/count" />
+
+| | iOS | Android | Web |
+| --- | --- | --- | --- |
+| Control | SwiftUI `Stepper` | Compose `Row` and `IconButton`s | Base UI `NumberField` |
+
+## Props
+
+<PropsTable path="stepper/types.ts" name="StepperProps" />
