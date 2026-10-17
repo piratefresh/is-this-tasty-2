@@ -19,7 +19,7 @@ export function GridDexCardExample() {
         style={{ height: 640 }}
         nestedScrollEnabled
         renderItem={({ item }) => (
-          <DexCard name={item.name} number={item.number} rarity={item.rarity} collected={item.collected} onPress={() => {}} />
+          <DexCard name={item.name} number={item.number} rarity={item.rarity} collected={item.collected} />
         )}
       />
     </ScrollView>
