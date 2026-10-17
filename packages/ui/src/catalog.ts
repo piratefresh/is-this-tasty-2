@@ -7,6 +7,7 @@ import { genreTagExamples } from "./genre-tag/examples";
 import { dateFieldExamples } from "./date-field/examples";
 import { progressExamples } from "./progress/examples";
 import { drinkRowExamples } from "./drink-row/examples";
+import { dexCardExamples } from "./dex-card/examples";
 import { fieldExamples } from "./field/examples";
 import { formExamples } from "./form/examples";
 import { sheetExamples } from "./sheet/examples";
@@ -33,6 +34,7 @@ export const catalog: readonly CatalogEntry[] = [
   fieldExamples,
   genreTagExamples,
   drinkRowExamples,
+  dexCardExamples,
   pickerExamples,
   starRatingExamples,
   sheetExamples,

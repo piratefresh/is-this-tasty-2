@@ -27,10 +27,15 @@ export const color = {
   // Meaning: rating, category, rarity, status. Never chrome.
   star: '#f3b53f',
   gold: '#e0b455',
+  goldDark: '#8a6a2f',
+  goldBright: '#fff1c9',
   teal: '#5cc0c0',
   pink: '#d98aa8',
   success: '#5cc98a',
   destructive: '#ff6b6b',
+
+  // Dex collectible plate (STO-619)
+  dexPlate: '#16141c',
 } as const;
 
 /** 4pt grid. space[5] (22) is the screen inset. */
@@ -59,10 +64,34 @@ export const category = {
   Rosé: { dot: '#d98aa8', text: '#e7a6c0' },
   Bourbon: { dot: '#5cc0c0', text: '#8fe0e0' },
 } as const satisfies Record<string, { dot: string; text: string }>;
+export type Genre = keyof typeof category;
 
 export const categoryFallback = { dot: color.label3, text: color.label2 } as const;
+
+/** Dex rarity tiers. Frame gradient stops (gold → dark gold → gold), muted stops for locked cards, and frame width scale with rarity. Rarer tiers carry a border beam. Final tiers and finishes still wait on product input (STO-619). */
+export type RarityTier = {
+  width: number;
+  /** Collected cards of this tier get a light beam traveling the frame (see DexCard's BorderBeam). */
+  beam?: boolean;
+  frame: readonly [string, string, string];
+  frameMuted: readonly [string, string, string];
+};
+
+export const rarity = {
+  common: {
+    width: 3,
+    frame: [color.gold, color.goldDark, color.gold],
+    frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
+  },
+  rare: {
+    width: 3,
+    beam: true,
+    frame: [color.gold, color.goldDark, color.gold],
+    frameMuted: ['#6b6250', '#4a4335', '#6b6250'],
+  },
+} as const satisfies Record<string, RarityTier>;
 
 export type ColorToken = keyof typeof color;
 export type RadiusToken = keyof typeof radius;
 export type FontToken = keyof typeof font;
-export type Genre = keyof typeof category;
+export type RarityToken = keyof typeof rarity;

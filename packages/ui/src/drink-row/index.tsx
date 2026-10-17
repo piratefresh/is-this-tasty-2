@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { LongPressMenu, type ActionMenuItem } from "../action-menu";
+import { LabelArt } from "../label-art";
 import { Text } from "../text";
 import { category, categoryFallback, color, radius, space } from "../theme/tokens";
 import type { Drink } from "./types";
@@ -26,21 +27,9 @@ export type DrinkRowProps = {
 const THUMB = 52;
 const BADGE = 18;
 const BADGE_RING = 2.5;
-const STRIPES = [0, 1, 2, 3, 4, 5, 6, 7];
 
 function hueFor(genre: string) {
   return Object.hasOwn(category, genre) ? category[genre as keyof typeof category] : categoryFallback;
-}
-
-/** Tokens-only stand-in until photos exist. */
-function Placeholder() {
-  return (
-    <View aria-hidden style={styles.placeholder}>
-      {STRIPES.map((i) => (
-        <View key={i} style={[styles.stripe, { left: i * 14 - THUMB / 2 }]} />
-      ))}
-    </View>
-  );
 }
 
 function describe({ drink, badge, trailing, trailingLabel }: Pick<DrinkRowProps, "drink" | "badge" | "trailing" | "trailingLabel">) {
@@ -73,7 +62,7 @@ export function DrinkRow({ drink, badge, trailing, trailingLabel, onPress, menu,
               style={StyleSheet.absoluteFill}
             />
           ) : (
-            <Placeholder />
+            <LabelArt size={THUMB} />
           )}
         </View>
         {badge ? (
@@ -117,15 +106,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     overflow: "hidden",
     backgroundColor: color.surfaceAlt,
-  },
-  placeholder: { ...StyleSheet.absoluteFill, overflow: "hidden" },
-  stripe: {
-    position: "absolute",
-    top: -THUMB,
-    width: 6,
-    height: THUMB * 3,
-    backgroundColor: color.separator,
-    transform: [{ rotate: "45deg" }],
   },
   badge: {
     position: "absolute",
