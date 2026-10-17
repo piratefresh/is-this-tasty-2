@@ -8,6 +8,7 @@
     "@expo-google-fonts/spectral": "^0.4.1",
     "@expo/ui": "~58.0.18",
     "@is-this-tasty/ui": "workspace:*",
+    "@shopify/react-native-skia": "2.14.0",
     "expo": "~58.0.11",
     "expo-constants": "~58.0.12",
     "expo-device": "~58.0.5",

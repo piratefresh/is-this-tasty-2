@@ -1,0 +1,68 @@
+---
+title: DexCard
+description: Collectible plate for the Dex — gold rarity frame, № number, label art, border beam and reveal.
+---
+
+Custom React Native card: the most branded surface in the app.
+One implementation serves iOS, Android and web; no native Host is needed.
+
+```tsx
+<DexCard name="Pliny the Elder" number={42} collected onPress={openDrink} />
+```
+
+The frame is a 3–4pt gradient whose colors come from the tier (`common` silver, `uncommon` teal, `rare` gold, `legendary` violet–pink) drawn with RN 0.88's
+`backgroundImage: linear-gradient(...)` — no `expo-linear-gradient` dependency. Frame stops
+live in the `rarity` map in `tokens.ts`, so tiers are data.
+
+Flipping `collected` from `false` to `true` while mounted plays the reveal: a ~600ms
+flip/scale-in on the UI thread plus a success haptic. Reduce Motion gets a crossfade.
+
+## Border beam
+
+Rarer tiers (`rare` and `legendary`, `beam: true` in the `rarity` map, optional `beamColors`) carry a light beam sweeping
+the frame. It is reacticx's border beam (MIT) vendored into `border-beam.tsx`: a Skia
+runtime shader driven by the shared clock, so it animates on the UI thread with no
+per-frame React work. The beam renders only for collected cards, pauses under Reduce
+Motion, and is native-only for now — web shows the static gradient frame until Skia's
+`LoadSkiaWeb` is wired up for Expo web.
+
+## Do / don't
+
+- Do keep grid cards at the default width (104pt); pass a larger width only on the detail view.
+- Don't invent rarity tiers in app code. When product confirms them, add them to `rarity` in `tokens.ts` and they light up everywhere (STO-619 follow-up).
+- Don't build reveal state into the card. It is controlled: the caller flips `collected` and the card animates the transition.
+- Don't put other content inside the plate; label art is a striped placeholder until drink photos exist.
+
+## Collected
+
+<Preview example="dex-card/collected" />
+
+## Locked
+
+<Preview example="dex-card/locked" />
+
+## Reveal
+
+<Preview example="dex-card/reveal" />
+
+## Rare · border beam
+
+<Preview example="dex-card/rare" />
+
+## Detail size
+
+<Preview example="dex-card/large" />
+
+## 150-card grid
+
+<Preview example="dex-card/grid" />
+
+## Props
+
+<PropsTable path="dex-card/index.tsx" name="DexCardProps" />
+
+## Enhancements
+
+- **Rarity tiers.** `common`, `uncommon`, `rare` and `legendary` are placeholders; final tiers and per-tier finishes wait on product input.
+- **Web beam.** Enable on web by hosting CanvasKit and calling `LoadSkiaWeb` (see `@shopify/react-native-skia` web docs), then drop the `Platform.OS !== "web"` gate in `DexCard`.
+- **Label art.** Swap `LabelArt` for `expo-image` photos with a `dexPlate` background once photography exists.

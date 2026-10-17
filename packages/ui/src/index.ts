@@ -16,7 +16,7 @@ export { DateField, type DateFieldProps } from "./date-field";
 export { Progress, type ProgressProps } from "./progress";
 export { Switch, type SwitchProps } from "./switch";
 export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
-export { DrinkRow, type Drink, type DrinkRowProps } from "./drink-row";
+export { DexCard, type DexCardProps } from "./dex-card";
 export { Field, SearchField, type FieldAutoComplete, type FieldProps, type FieldRef, type SearchFieldProps } from "./field";
 export { KeyboardRevealContext } from "./keyboard-reveal";
 export { MenuPicker, SegmentedPicker, type PickerProps } from "./picker";
@@ -32,10 +32,12 @@ export {
   color,
   font,
   radius,
+  rarity,
   screenInset,
   space,
   type ColorToken,
   type FontToken,
   type Genre,
   type RadiusToken,
+  type RarityToken,
 } from "./theme/tokens";
