@@ -1,2 +1,2 @@
-export { Stepper } from "./index.android";
+export { StepperNative as Stepper } from "./StepperNative";
 export type { StepperProps } from "./types";
