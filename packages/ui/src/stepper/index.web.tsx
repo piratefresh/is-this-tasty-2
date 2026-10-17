@@ -11,7 +11,7 @@ const styles = tv({
     label: "text-base font-medium text-label",
     controls: "inline-flex items-center gap-1",
     button: "grid h-9 w-9 place-items-center rounded-md bg-surface-alt text-tint-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tint-text data-disabled:opacity-40",
-    input: "h-7 w-7 rounded-md bg-transparent text-center text-label outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tint-text",
+    input: "h-7 w-14 rounded-md bg-transparent text-center text-label outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tint-text",
   },
 });
 

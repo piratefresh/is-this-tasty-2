@@ -10,6 +10,13 @@ import { defaultTasteSliderStep, type TasteSliderProps } from "./types";
 
 export type { TasteSliderProps } from "./types";
 
+// Ticks only when step divides 0..1 evenly; otherwise move continuously and snap to step.
+function snapToStep(value: number, step: number) {
+  if (step <= 0) return value;
+  const snapped = Math.min(Math.round(value / step) * step, 1);
+  return Number(snapped.toFixed((String(step).split(".")[1] ?? "").length));
+}
+
 export function TasteSlider({ leftLabel, rightLabel, value, onChange, onChangeEnd, step = defaultTasteSliderStep }: TasteSliderProps) {
   const currentValue = useRef(value);
   useEffect(() => {
@@ -27,10 +34,11 @@ export function TasteSlider({ leftLabel, rightLabel, value, onChange, onChangeEn
           value={value}
           min={0}
           max={1}
-          steps={step > 0 ? Math.max(Math.round(1 / step) - 1, 0) : 0}
+          steps={step > 0 && Math.abs(1 / step - Math.round(1 / step)) < 1e-9 ? Math.round(1 / step) - 1 : 0}
           onValueChange={(nextValue) => {
-            currentValue.current = nextValue;
-            onChange(nextValue);
+            const snapped = snapToStep(nextValue, step);
+            currentValue.current = snapped;
+            onChange(snapped);
           }}
           onValueChangeFinished={() => onChangeEnd(currentValue.current)}
           modifiers={[semantics({ contentDescription: `${leftLabel} to ${rightLabel}` })]}

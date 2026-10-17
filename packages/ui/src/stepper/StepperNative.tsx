@@ -38,6 +38,11 @@ function parseNumber(text: string) {
   return Number.isFinite(value) ? value : undefined;
 }
 
+// Round to the step's precision so 0.1 + 0.2 shows 0.3, not 0.30000000000000004.
+function roundToStep(value: number, step: number) {
+  return Number(value.toFixed((String(step).split(".")[1] ?? "").length));
+}
+
 function clampValue(value: number, min: number, max: number | undefined) {
   return Math.max(min, max === undefined ? value : Math.min(max, value));
 }
@@ -96,7 +101,7 @@ export function StepperNative({
   const stepBy = useCallback(
     (direction: -1 | 1) => {
       const baseValue = parseNumber(draft.current) ?? currentValue.current;
-      const nextValue = clampValue(baseValue + direction * step, min, max);
+      const nextValue = roundToStep(clampValue(baseValue + direction * step, min, max), step);
       const nextText = String(nextValue);
       draft.current = nextText;
       currentValue.current = nextValue;
