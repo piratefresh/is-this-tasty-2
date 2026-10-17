@@ -1,0 +1,33 @@
+---
+title: Progress
+description: Linear and circular progress, determinate or indeterminate.
+---
+
+Native progress: SwiftUI `ProgressView` / `Gauge` on iOS, Compose
+`LinearProgressIndicator` / `CircularProgressIndicator` on Android, Base UI
+`Progress` on web. Fill uses the violet tint on a `handle` track (4pt linear).
+
+```tsx
+<Progress label="Dex completion" value={0.35} />
+<Progress label="Loading" variant="circular" />
+```
+
+`value` runs 0 to 1. Omit it for the system's indeterminate spinner; don't
+build custom spinners. The `label` plus the value is announced, e.g. "Dex
+completion, 35 percent".
+
+## Onboarding steps
+
+<Preview example="progress/steps" />
+
+## Dex completion
+
+<Preview example="progress/dex" />
+
+## Loading
+
+<Preview example="progress/loading" />
+
+## Props
+
+<PropsTable path="progress/types.ts" name="ProgressProps" />
