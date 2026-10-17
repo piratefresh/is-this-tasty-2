@@ -1,0 +1,24 @@
+---
+title: DateField
+description: Form row that picks a past or current date.
+---
+
+A date row for `Form` sections: SwiftUI compact `DatePicker` on iOS, a Compose
+`ListItem` that opens a `DatePickerDialog` on Android, and
+`<input type="date">` on web. It defaults to today and disables future dates;
+pass `maxDate` to change the cutoff.
+
+```tsx
+<DateField label="Poured on" value={pouredOn} onChange={setPouredOn} />
+```
+
+Use it inside `Form`/`FormSection` only. The form supplies the Host and row
+styling.
+
+<Preview example="date-field/log-form" />
+
+The label is read with the selected date by VoiceOver and TalkBack.
+
+## Props
+
+<PropsTable path="date-field/types.ts" name="DateFieldProps" />

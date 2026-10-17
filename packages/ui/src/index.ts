@@ -12,6 +12,8 @@ export {
   type FormSectionProps,
   type SwitchRowProps,
 } from "./form";
+export { DateField, type DateFieldProps } from "./date-field";
+export { Progress, type ProgressProps } from "./progress";
 export { Switch, type SwitchProps } from "./switch";
 export { GenreTag, GenreTagList, type GenreTagProps, type GenreTagListProps } from "./genre-tag";
 export { DrinkRow, type Drink, type DrinkRowProps } from "./drink-row";
