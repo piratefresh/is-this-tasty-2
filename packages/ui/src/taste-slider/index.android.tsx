@@ -27,7 +27,7 @@ export function TasteSlider({ leftLabel, rightLabel, value, onChange, onChangeEn
           value={value}
           min={0}
           max={1}
-          steps={Math.max(Math.round(1 / step) - 1, 0)}
+          steps={step > 0 ? Math.max(Math.round(1 / step) - 1, 0) : 0}
           onValueChange={(nextValue) => {
             currentValue.current = nextValue;
             onChange(nextValue);

@@ -2,6 +2,7 @@ import { TextInput, useNativeState, type TextInputProps, type TextInputRef } fro
 import { useCallback, useEffect, useRef } from "react";
 import { Platform, Pressable, StyleSheet, View } from "react-native";
 
+import { useKeyboardReveal } from "../keyboard-reveal";
 import { Text } from "../text";
 import { ThemedHost } from "../theme/themed-host";
 import { color, radius, space } from "../theme/tokens";
@@ -24,8 +25,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.sm,
     backgroundColor: color.surfaceAlt,
   },
-  inputHost: { width: 56, height: 40 },
-  input: { width: 56, height: 40, padding: 0, borderRadius: radius.sm, backgroundColor: color.surfaceAlt },
+  // RN chrome owns size, fill and vertical centering; the native input sizes to its text (same as Field).
+  inputChrome: { width: 56, height: 40, justifyContent: "center", borderRadius: radius.sm, backgroundColor: color.surfaceAlt },
+  inputHost: { width: 56 },
+  input: { width: 56, padding: 0, backgroundColor: "transparent" },
   disabled: { opacity: 0.4 },
 });
 
@@ -54,6 +57,7 @@ export function StepperNative({
   const draft = useRef(text);
   const focused = useRef(false);
   const currentValue = useRef(value);
+  const { ref: revealRef, onFocus: revealOnFocus } = useKeyboardReveal();
 
   useEffect(() => {
     currentValue.current = value;
@@ -68,9 +72,10 @@ export function StepperNative({
       draft.current = nextText;
       const parsed = parseNumber(nextText);
       if (parsed === undefined) return;
-      const nextValue = clampValue(parsed, min, max);
-      currentValue.current = nextValue;
-      onChange(nextValue);
+      // Out-of-range drafts wait for commitDraft so typing "0" with min=1 doesn't emit 1 mid-edit.
+      if (parsed < min || (max !== undefined && parsed > max)) return;
+      currentValue.current = parsed;
+      onChange(parsed);
     },
     [max, min, onChange],
   );
@@ -105,7 +110,7 @@ export function StepperNative({
   const incrementDisabled = disabled || (max !== undefined && value >= max);
 
   return (
-    <View style={styles.root}>
+    <View ref={revealRef} style={styles.root}>
       <Text variant="label" color="label" style={styles.label}>
         {label}
       </Text>
@@ -121,30 +126,33 @@ export function StepperNative({
         >
           <Text variant="label" color="label">−</Text>
         </Pressable>
-        <ThemedHost matchContents={{ vertical: true }} style={styles.inputHost}>
-          <TextInput
-            ref={inputRef}
-            value={inputState}
-            onChangeText={handleChangeText}
-            onFocus={() => {
-              focused.current = true;
-              draft.current = String(currentValue.current);
-            }}
-            onBlur={commitDraft}
-            onSubmitEditing={() => {
-              commitDraft();
-              inputRef.current?.blur();
-            }}
-            placeholder={label}
-            keyboardType="decimal-pad"
-            returnKeyType="done"
-            editable={!disabled}
-            cursorColor={color.tint}
-            selectionColor={color.tint}
-            textStyle={inputTextStyle}
-            style={styles.input}
-          />
-        </ThemedHost>
+        <View style={styles.inputChrome}>
+          <ThemedHost matchContents={{ vertical: true }} style={styles.inputHost}>
+            <TextInput
+              ref={inputRef}
+              value={inputState}
+              onChangeText={handleChangeText}
+              onFocus={() => {
+                focused.current = true;
+                revealOnFocus();
+                draft.current = String(currentValue.current);
+              }}
+              onBlur={commitDraft}
+              onSubmitEditing={() => {
+                commitDraft();
+                inputRef.current?.blur();
+              }}
+              placeholder={label}
+              keyboardType="decimal-pad"
+              returnKeyType="done"
+              editable={!disabled}
+              cursorColor={color.tint}
+              selectionColor={color.tint}
+              textStyle={inputTextStyle}
+              style={styles.input}
+            />
+          </ThemedHost>
+        </View>
         <Pressable
           style={[styles.button, incrementDisabled && styles.disabled]}
           disabled={incrementDisabled}
